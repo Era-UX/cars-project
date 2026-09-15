@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services & Test Drive - Cars Project</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav id="main-nav">
+            <a href="index.html" class="logo">AutoWorld</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="models.html">Models</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1>Our Services</h1>
+        <p>We provide a wide range of services to keep your car in perfect condition.</p>
+        
+        <div class="services-info">
+            <img src="images/mechanic.jpeg" alt="Mechanic repairing a car engine" class="feature-img">
+            <div class="services-list">
+                <h3>What we offer:</h3>
+                <ul>
+                    <li>Free test drives for all new models</li>
+                    <li>Full technical maintenance</li>
+                    <li>Favorable financing and leasing</li>
+                    <li>Extended warranty for up to 5 years</li>
+                </ul>
+            </div>
+        </div>
+
+        <hr>
+
+        <section class="booking-section">
+            <h2>Book a Test Drive</h2>
+            <form id="booking-form" action="#" method="POST">
+                
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required placeholder="john@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="car-model">Select a Car Model:</label>
+                    <select id="car-model" name="car-model">
+                        <option value="sedan">Luxury Sedan V8</option>
+                        <option value="suv">Family SUV Pro</option>
+                        <option value="sport">Sport Coupe X</option>
+                        <option value="electric">Eco Electric Plus</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Additional Wishes:</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Any specific time or preferences?"></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Submit Request</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 AutoWorld. Project created by: <strong>Yerassyl Aldebayev</strong> and <strong>Temirlan Tatken</strong>.</p>
+    </footer>
+</body>
+</html>
