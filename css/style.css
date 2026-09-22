@@ -265,6 +265,66 @@ footer strong {
 /* ===================================================
    SERVICES PAGE (from teammate)
    =================================================== */
+
+/* Task 3 (Services): CSS Grid page layout — header / sidebar / main / footer */
+.page-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "header header"
+        "sidebar main"
+        "footer footer";
+}
+
+.grid-header {
+    grid-area: header;
+}
+
+.grid-sidebar {
+    grid-area: sidebar;
+    padding: 2rem 1.5rem;
+    background-color: #ffffff;
+    border-right: 1px solid #eee;
+}
+
+.grid-sidebar h3 {
+    color: #d32f2f;
+}
+
+.grid-sidebar ul {
+    margin: 1rem 0 1.5rem 1.2rem;
+}
+
+.grid-sidebar ul li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.grid-main {
+    grid-area: main;
+    padding: 2rem 1.5rem;
+}
+
+.grid-footer {
+    grid-area: footer;
+}
+
+@media (max-width: 700px) {
+    .page-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "sidebar"
+            "main"
+            "footer";
+    }
+}
+
 .services-info {
     display: flex;
     flex-wrap: wrap;
