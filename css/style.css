@@ -96,7 +96,6 @@ footer strong {
     height: 360px;
     width: 75%;
     object-fit: cover;
-
 }
 
 .intro, .highlights {
@@ -122,17 +121,18 @@ footer strong {
     flex: 1 1 300px;
 }
 
-/* Task 2 (Home): Flexbox card row — responsive via custom media queries only */
+/* Task 2 (Home): card row — custom media queries only, no flexbox, no Bootstrap */
 .card-row {
-    display: flex;
-    gap: 1.5rem;
     margin-top: 1.5rem;
+    font-size: 0; /* removes the small gaps between inline-block cards */
 }
 
 .category-card {
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
+    display: inline-block;
+    vertical-align: top;
+    width: calc(33.333% - 1rem);   /* desktop: three per row */
+    margin: 0.5rem;
+    font-size: 1rem;
     background-color: #ffffff;
     border: 1px solid #eee;
     border-radius: 10px;
@@ -142,20 +142,17 @@ footer strong {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Tablet: two cards per row */
+/* Tablet: two per row */
 @media (max-width: 900px) {
-    .card-row {
-        flex-wrap: wrap;
-    }
     .category-card {
-        flex: 1 1 calc(50% - 0.75rem);
+        width: calc(50% - 1rem);
     }
 }
 
 /* Mobile: stacked */
 @media (max-width: 500px) {
     .category-card {
-        flex: 1 1 100%;
+        width: calc(100% - 1rem);
     }
 }
 
