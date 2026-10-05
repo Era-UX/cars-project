@@ -1,34 +1,29 @@
 /* ===================================================
-   GLOBAL BASE (shared across all pages)
+   AutoWorld - custom styles
+   Layout, navbar, cards, buttons, table, carousel and
+   form are handled by Bootstrap classes in the HTML.
+   This file only holds fonts, responsive typography
+   (media queries) and image sizes.
    =================================================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
+/* ---------- Fonts ---------- */
 body {
     font-family: 'Trebuchet MS', Arial, sans-serif;
-    color: #1a1a1a;
-    background-color: #f9f9f9;
     line-height: 1.6;
 }
 
 h1, h2, h3 {
     font-family: Georgia, 'Times New Roman', serif;
-    margin-bottom: 0.75rem;
 }
 
-p {
-    margin-bottom: 1rem;
-}
-
-/* Task 1: Responsive typography (custom media queries, no Bootstrap) */
+/* ---------- Responsive typography (media queries) ---------- */
+/* Mobile (default) */
 h1 { font-size: 1.8rem; }
 h2 { font-size: 1.4rem; }
 h3 { font-size: 1.15rem; }
 p  { font-size: 0.95rem; }
 
+/* Tablet */
 @media (min-width: 601px) and (max-width: 992px) {
     h1 { font-size: 2.2rem; }
     h2 { font-size: 1.7rem; }
@@ -36,6 +31,7 @@ p  { font-size: 0.95rem; }
     p  { font-size: 1rem; }
 }
 
+/* Desktop */
 @media (min-width: 993px) {
     h1 { font-size: 2.75rem; }
     h2 { font-size: 2rem; }
@@ -43,332 +39,40 @@ p  { font-size: 0.95rem; }
     p  { font-size: 1.05rem; }
 }
 
-hr {
-    border: none;
-    border-top: 1px solid #ddd;
-    margin: 2rem 0;
-}
-
-/* ===================================================
-   NAVIGATION (#main-nav) — Bootstrap navbar, brand-colored
-   =================================================== */
-#main-nav.navbar {
-    background-color: #1a1a1a;
-}
-
-#main-nav .navbar-brand {
-    color: #d32f2f;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-#main-nav .nav-link {
-    color: #ffffff;
-}
-
-#main-nav .nav-link:hover,
-#main-nav .nav-link.active {
-    color: #d32f2f;
-}
-
-/* ===================================================
-   FOOTER
-   =================================================== */
-footer {
-    text-align: center;
-    background-color: #1a1a1a;
-    color: #ffffff;
-}
-
-footer strong {
-    color: #d32f2f;
-}
-
-/* ===================================================
-   HOME PAGE
-   =================================================== */
-.hero {
-    text-align: center;
-}
-
+/* ---------- Home: hero image ---------- */
 .hero-img {
+    width: 75%;
     max-width: 700px;
     height: 360px;
-    width: 75%;
     object-fit: cover;
 }
 
-.intro, .highlights {
-    max-width: 800px;
-    margin: 1.5rem auto;
-}
-
-/* Task 1 (Home): Flexbox row for image + text */
-.intro-flex {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-.intro-img {
-    flex: 1 1 300px;
-    max-width: 100%;
-    border-radius: 8px;
-}
-
-.intro-text {
-    flex: 1 1 300px;
-}
-
-/* Task 2 (Home): card row — custom media queries only, no flexbox, no Bootstrap */
-.card-row {
-    margin-top: 1.5rem;
-    font-size: 0; /* removes the small gaps between inline-block cards */
-}
-
-.category-card {
-    display: inline-block;
-    vertical-align: top;
-    width: calc(33.333% - 1rem);   /* desktop: three per row */
-    margin: 0.5rem;
-    font-size: 1rem;
-    background-color: #ffffff;
-    border: 1px solid #eee;
-    border-radius: 10px;
-    padding: 1.5rem;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* Tablet: two per row */
-@media (max-width: 900px) {
-    .category-card {
-        width: calc(50% - 1rem);
+@media (max-width: 576px) {
+    .hero-img {
+        width: 100%;
+        height: 220px;
     }
 }
 
-/* Mobile: stacked */
-@media (max-width: 500px) {
-    .category-card {
-        width: calc(100% - 1rem);
-    }
-}
-
-.category-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-}
-
-.category-card img {
-    width: 100%;
-    height: 140px;
+/* ---------- Cards (Home): same crop for every card image ---------- */
+.card-img-top {
+    height: 200px;
     object-fit: cover;
-    border-radius: 6px;
-    margin-bottom: 1rem;
 }
 
-.category-card p {
-    flex-grow: 1;
-}
-
-.btn-card {
-    display: inline-block;
-    background-color: #d32f2f;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    margin-top: 0.5rem;
-    transition: background-color 0.3s ease;
-}
-
-.btn-card:hover {
-    background-color: #b71c1c;
-}
-
-/* ===================================================
-   MODELS PAGE
-   =================================================== */
-.catalog-table table {
+/* ---------- Models: lineup image and carousel ---------- */
+.lineup-img {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+    height: 320px;
+    object-fit: cover;
 }
 
-.catalog-table th,
-.catalog-table td {
-    border: 1px solid #ccc;
-    padding: 0.75rem;
-    text-align: left;
-}
-
-.catalog-table th {
-    background-color: #1a1a1a;
-    color: #ffffff;
-}
-
-.catalog-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-/* Task 7 (Models): Bootstrap Carousel — brand color for controls/indicators */
-.carousel-caption h5 {
-    color: #ffffff;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: rgba(211, 47, 47, 0.7);
-    border-radius: 50%;
-    padding: 1.2rem;
-}
-
-/* Task 8 (Home): Bootstrap Cards — Featured Vehicles */
-.card-group .card-title {
-    font-family: Georgia, 'Times New Roman', serif;
-}
-
-/* Shared feature image style (hero, models, services) */
-.feature-img {
-    max-width: 100%;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-}
-
-/* ===================================================
-   SERVICES PAGE (from teammate)
-   =================================================== */
-
-/* Task 3 (Services): CSS Grid page layout — header / sidebar / main / footer */
-.page-grid {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas:
-        "header header"
-        "sidebar main"
-        "footer footer";
-}
-
-.grid-header {
-    grid-area: header;
-}
-
-.grid-sidebar {
-    grid-area: sidebar;
-    padding: 2rem 1.5rem;
-    background-color: #ffffff;
-    border-right: 1px solid #eee;
-}
-
-.grid-sidebar h3 {
-    color: #d32f2f;
-}
-
-.grid-sidebar ul {
-    margin: 1rem 0 1.5rem 1.2rem;
-}
-
-.grid-sidebar ul li {
-    margin-bottom: 0.5rem;
-}
-
-.sidebar-img {
-    width: 100%;
-    border-radius: 8px;
-}
-
-.grid-main {
-    grid-area: main;
-    padding: 2rem 1.5rem;
-}
-
-.grid-footer {
-    grid-area: footer;
-}
-
-@media (max-width: 700px) {
-    .page-grid {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "header"
-            "sidebar"
-            "main"
-            "footer";
+@media (max-width: 576px) {
+    .lineup-img {
+        height: 200px;
     }
 }
 
-.services-info {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    align-items: flex-start;
-}
-
-.services-list {
-    flex: 1 1 250px;
-}
-
-#booking-form {
-    background-color: #f9f9f9;
-    padding: 2rem;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    max-width: 600px;
-}
-
-/* Task 9 (Services): Bootstrap form — brand color overrides */
-#booking-form .form-control:focus,
-#booking-form .form-select:focus {
-    border-color: #d32f2f;
-    box-shadow: 0 0 5px rgba(211, 47, 47, 0.3);
-}
-
-/* ===================================================
-   ABOUT PAGE (from teammate)
-   =================================================== */
-
-/* Task 3 (About): Bootstrap Grid — two-column team section, three-column values */
-.core-value {
-    padding: 1rem;
-}
-
-.core-value h5 {
-    color: #d32f2f;
-}
-
-.team-card {
-    flex: 1 1 300px;
-    text-align: center;
-    padding: 1.5rem;
-    background-color: #fff;
-    border: 1px solid #eee;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-.team-photo {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #d32f2f;
-    margin-bottom: 1rem;
-}
-
-.role {
-    color: #666;
-    font-style: italic;
-    margin-bottom: 10px;
-}
-
-/* ===================================================
-   IMAGE SIZE LIMITS (keeps images comfortable with Bootstrap container)
-   =================================================== */
-
-/* Carousel (Models page) */
 .carousel-item img {
     height: 450px;
     object-fit: cover;
@@ -380,21 +84,9 @@ footer strong {
     }
 }
 
-/* Optional: cap carousel width on large monitors */
-#modelCarousel {
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-/* Featured Vehicles cards (Home page) */
-.card-img-top {
-    height: 200px;
-    object-fit: cover;
-}
-
-/* Lineup image at the top of Models page */
-.catalog-intro img {
-    width: 100%;
-    height: 320px;
+/* ---------- About: team photo (circle comes from rounded-circle) ---------- */
+.team-photo {
+    width: 150px;
+    height: 150px;
     object-fit: cover;
 }
