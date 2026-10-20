@@ -2,14 +2,16 @@
    AutoWorld - custom styles
    Layout, navbar, cards, buttons, table, carousel and
    form are handled by Bootstrap classes in the HTML.
-   This file only holds fonts, responsive typography
-   (media queries) and image sizes.
+   This file holds fonts, responsive typography
+   (media queries), image sizes, and JS component styles.
    =================================================== */
 
-/* ---------- Fonts ---------- */
+/* ---------- Fonts & Body Background (Task 4) ---------- */
 body {
     font-family: 'Trebuchet MS', Arial, sans-serif;
     line-height: 1.6;
+    background-color: #f8f9fa;
+    transition: background-color 0.5s ease;
 }
 
 h1, h2, h3 {
@@ -89,4 +91,100 @@ p  { font-size: 0.95rem; }
     width: 150px;
     height: 150px;
     object-fit: cover;
+}
+
+/* ---------- Task 2: FAQ Accordion (Models page) ---------- */
+.faq-item {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+}
+
+.faq-question {
+    width: 100%;
+    background-color: #ffffff;
+    border: none;
+    padding: 1rem 1.25rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1.05rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.faq-question:hover {
+    background-color: #f1f3f5;
+}
+
+.faq-question[aria-expanded="true"] {
+    background-color: #fff5f5;
+    color: #dc3545;
+}
+
+.faq-icon {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #dc3545;
+    margin-left: 1rem;
+    line-height: 1;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 1.25rem;
+}
+
+.faq-answer p {
+    padding-top: 0.25rem;
+    padding-bottom: 1rem;
+    margin-bottom: 0;
+    color: #495057;
+}
+
+/* ---------- Task 3: Popup Subscription Form (Home page) ---------- */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1050;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.popup-box {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 0.5rem;
+    padding: 2rem 1.5rem 1.5rem;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.popup-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    line-height: 1;
+    color: #6c757d;
+    cursor: pointer;
+}
+
+.popup-close:hover {
+    color: #dc3545;
 }
