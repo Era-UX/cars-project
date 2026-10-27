@@ -19,8 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // A simple email pattern: text, then @, then text, then a dot, then text
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Strict email pattern: only letters, numbers, single dots/hyphens/underscores allowed before @,
+    // valid domain name, and a 2+ letter domain extension (no !#$%^&* or spaces allowed)
+    const strictEmailPattern = /^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*@[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*(\.[a-zA-Z]{2,})+$/;
 
     // 2. Show and hide the popup
     function openPopup() {
@@ -48,13 +49,16 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (event) {
         event.preventDefault(); // do not reload the page
 
-        const email = emailInput.value.trim();
+        const rawEmail = emailInput.value;
+        const email = rawEmail.trim();
         successBox.textContent = "";
 
         if (email === "") {
             errorBox.textContent = "Please enter your email address.";
-        } else if (!emailPattern.test(email)) {
-            errorBox.textContent = "Please enter a valid email address, for example name@example.com.";
+        } else if (/\s/.test(email)) {
+            errorBox.textContent = "Email address cannot contain spaces.";
+        } else if (!strictEmailPattern.test(email)) {
+            errorBox.textContent = "Please enter a valid email (letters and numbers only, e.g. name@example.com).";
         } else {
             errorBox.textContent = "";
             successBox.textContent = "Thank you! You are subscribed.";

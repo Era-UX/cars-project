@@ -17,11 +17,14 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navMenu">
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
                         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="models.html">Models</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="services.html">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                            <button type="button" id="theme-toggle-btn" class="btn btn-warning btn-sm">Night Mode</button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -37,54 +40,96 @@
 
                 <hr class="my-4">
 
-                <!-- Task 1: Unified Test Drive & Client Account Form with JS Validation -->
+                <!-- Assignment 5: Multi-Step Booking Wizard + Payment Estimator + Validation -->
                 <section class="booking-section">
                     <h2>Book a Test Drive &amp; Create Client Profile</h2>
-                    <p class="text-secondary">Schedule your free test drive and set up a client password to manage your booking online.</p>
+                    <p class="text-secondary">Complete the 2-step wizard below to configure your vehicle and register your client account.</p>
+
+                    <div class="progress mb-3" style="height: 24px;">
+                        <div id="wizard-progress" class="progress-bar bg-danger" role="progressbar" style="width: 50%;">
+                            Step 1 of 2: Vehicle &amp; Financing
+                        </div>
+                    </div>
+
                     <form id="booking-form" action="#" method="get" class="p-4 bg-white border rounded shadow-sm" novalidate>
 
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="reg-name" class="form-label">Full Name:</label>
-                                <input type="text" id="reg-name" name="reg-name" class="form-control" placeholder="John Doe">
-                                <div id="reg-name-error" class="invalid-feedback"></div>
+                        <!-- STEP 1: Choose Model, Financing Calculator & Notes -->
+                        <div class="wizard-step" id="step-1">
+                            <h3 class="h5 text-danger mb-3">Step 1: Select Vehicle &amp; Financing Plan</h3>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="car-model" class="form-label">Select a Car Model:</label>
+                                    <select id="car-model" name="car-model" class="form-select">
+                                        <option value="Aurora S (Sedan)">Aurora S — Sedan ($24,500)</option>
+                                        <option value="Trailblazer X (SUV)">Trailblazer X — SUV ($38,900)</option>
+                                        <option value="Volt Pro (Electric)">Volt Pro — Electric ($41,200)</option>
+                                        <option value="Raptor GT (Sports)">Raptor GT — Sports ($62,000)</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="loan-months" class="form-label">Financing Term:</label>
+                                    <select id="loan-months" name="loan-months" class="form-select">
+                                        <option value="24">24 Months (2 Years)</option>
+                                        <option value="36" selected>36 Months (3 Years)</option>
+                                        <option value="60">60 Months (5 Years)</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="p-3 bg-light border rounded d-flex justify-content-between align-items-center">
+                                        <span class="text-secondary">Estimated Monthly Payment (5% APR):</span>
+                                        <strong id="monthly-estimate" class="fs-5 text-danger">$784 / month</strong>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="message" class="form-label">Additional Wishes (Optional):</label>
+                                    <textarea id="message" name="message" class="form-control" rows="3" placeholder="Preferred date, time, or questions?"></textarea>
+                                </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <label for="reg-email" class="form-label">Email Address:</label>
-                                <input type="email" id="reg-email" name="reg-email" class="form-control" placeholder="name@example.com">
-                                <div id="reg-email-error" class="invalid-feedback"></div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="reg-password" class="form-label">Create Password:</label>
-                                <input type="password" id="reg-password" name="reg-password" class="form-control" placeholder="At least 8 characters">
-                                <div id="reg-password-error" class="invalid-feedback"></div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="reg-confirm" class="form-label">Confirm Password:</label>
-                                <input type="password" id="reg-confirm" name="reg-confirm" class="form-control" placeholder="Re-enter your password">
-                                <div id="reg-confirm-error" class="invalid-feedback"></div>
-                            </div>
-
-                            <div class="col-12">
-                                <label for="car-model" class="form-label">Select a Car Model:</label>
-                                <select id="car-model" name="car-model" class="form-select">
-                                    <option value="Aurora S (Sedan)">Aurora S — Sedan ($24,500)</option>
-                                    <option value="Trailblazer X (SUV)">Trailblazer X — SUV ($38,900)</option>
-                                    <option value="Volt Pro (Electric)">Volt Pro — Electric ($41,200)</option>
-                                    <option value="Raptor GT (Sports)">Raptor GT — Sports ($62,000)</option>
-                                </select>
-                            </div>
-
-                            <div class="col-12">
-                                <label for="message" class="form-label">Additional Wishes (Optional):</label>
-                                <textarea id="message" name="message" class="form-control" rows="3" placeholder="Preferred date, time, or questions?"></textarea>
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" id="reset-form-btn" class="btn btn-outline-secondary">Reset All Fields</button>
+                                <button type="button" id="next-step-1" class="btn btn-danger px-4">Next: Client Details &rarr;</button>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-danger px-4 mt-3">Submit Booking &amp; Register</button>
+                        <!-- STEP 2: Personal Info & Password Validation -->
+                        <div class="wizard-step" id="step-2" style="display: none;">
+                            <h3 class="h5 text-danger mb-3">Step 2: Client Account Credentials</h3>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="reg-name" class="form-label">Full Name:</label>
+                                    <input type="text" id="reg-name" name="reg-name" class="form-control" placeholder="John Doe">
+                                    <div id="reg-name-error" class="invalid-feedback"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="reg-email" class="form-label">Email Address:</label>
+                                    <input type="email" id="reg-email" name="reg-email" class="form-control" placeholder="name@example.com">
+                                    <div id="reg-email-error" class="invalid-feedback"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="reg-password" class="form-label">Create Password:</label>
+                                    <input type="password" id="reg-password" name="reg-password" class="form-control" placeholder="At least 8 characters">
+                                    <div id="reg-password-error" class="invalid-feedback"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="reg-confirm" class="form-label">Confirm Password:</label>
+                                    <input type="password" id="reg-confirm" name="reg-confirm" class="form-control" placeholder="Re-enter your password">
+                                    <div id="reg-confirm-error" class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" id="back-step-2" class="btn btn-outline-secondary">&larr; Back to Vehicle</button>
+                                <button type="submit" class="btn btn-danger px-4">Submit Booking &amp; Register</button>
+                            </div>
+                        </div>
+
                         <div id="signup-success" class="text-success fw-semibold mt-3"></div>
                     </form>
                 </section>
@@ -112,6 +157,8 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/validation.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/sound.js"></script>
+    <script src="js/booking-wizard.js"></script>
 </body>
 </html>

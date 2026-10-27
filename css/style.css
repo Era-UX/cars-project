@@ -1,9 +1,5 @@
 /* ===================================================
-   AutoWorld - custom styles
-   Layout, navbar, cards, buttons, table, carousel and
-   form are handled by Bootstrap classes in the HTML.
-   This file holds fonts, responsive typography
-   (media queries), image sizes, and JS component styles.
+   AutoWorld - custom styles (Assignments 4 & 5)
    =================================================== */
 
 /* ---------- Fonts & Body Background (Task 4) ---------- */
@@ -11,21 +7,78 @@ body {
     font-family: 'Trebuchet MS', Arial, sans-serif;
     line-height: 1.6;
     background-color: #f8f9fa;
-    transition: background-color 0.5s ease;
+    color: #212529;
+    transition: background-color 0.5s ease, color 0.3s ease;
 }
 
 h1, h2, h3 {
     font-family: Georgia, 'Times New Roman', serif;
 }
 
+/* ---------- Assignment 5: Night Mode Theme ---------- */
+body.night-mode {
+    background-color: #121212 !important;
+    color: #e0e0e0;
+}
+
+body.night-mode .card,
+body.night-mode .bg-white,
+body.night-mode .bg-light,
+body.night-mode .faq-item,
+body.night-mode .faq-question,
+body.night-mode .popup-box {
+    background-color: #1e1e1e !important;
+    color: #e0e0e0 !important;
+    border-color: #333333 !important;
+}
+
+body.night-mode .text-secondary,
+body.night-mode .text-dark,
+body.night-mode .faq-answer p {
+    color: #b0b0b0 !important;
+}
+
+/* Fix inputs and placeholder visibility in Night Mode */
+body.night-mode .form-control,
+body.night-mode .form-select {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+    border-color: #444444 !important;
+}
+
+body.night-mode .form-control::placeholder {
+    color: #aaaaaa !important;
+    opacity: 1;
+}
+
+/* Fix Models Comparison Table in Night Mode */
+body.night-mode .table {
+    --bs-table-bg: #1e1e1e;
+    --bs-table-color: #e0e0e0;
+    --bs-table-striped-bg: #262626;
+    --bs-table-striped-color: #ffffff;
+    --bs-table-border-color: #383838;
+    color: #e0e0e0 !important;
+    border-color: #383838 !important;
+}
+
+body.night-mode .table tbody tr td {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border-color: #383838;
+}
+
+body.night-mode .table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: #262626 !important;
+    color: #ffffff !important;
+}
+
 /* ---------- Responsive typography (media queries) ---------- */
-/* Mobile (default) */
 h1 { font-size: 1.8rem; }
 h2 { font-size: 1.4rem; }
 h3 { font-size: 1.15rem; }
 p  { font-size: 0.95rem; }
 
-/* Tablet */
 @media (min-width: 601px) and (max-width: 992px) {
     h1 { font-size: 2.2rem; }
     h2 { font-size: 1.7rem; }
@@ -33,7 +86,6 @@ p  { font-size: 0.95rem; }
     p  { font-size: 1rem; }
 }
 
-/* Desktop */
 @media (min-width: 993px) {
     h1 { font-size: 2.75rem; }
     h2 { font-size: 2rem; }
@@ -41,12 +93,18 @@ p  { font-size: 0.95rem; }
     p  { font-size: 1.05rem; }
 }
 
-/* ---------- Home: hero image ---------- */
+/* ---------- Home: hero image & engine animation ---------- */
 .hero-img {
     width: 75%;
     max-width: 700px;
     height: 360px;
     object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-img.engine-rev-active {
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(220, 53, 69, 0.7);
 }
 
 @media (max-width: 576px) {
@@ -56,13 +114,17 @@ p  { font-size: 0.95rem; }
     }
 }
 
-/* ---------- Cards (Home): same crop for every card image ---------- */
+/* ---------- Cards & Event-Triggered Animations ---------- */
 .card-img-top {
     height: 200px;
     object-fit: cover;
 }
 
-/* ---------- Models: lineup image and carousel ---------- */
+.catalog-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ---------- Models: lineup image and Interactive Thumbnail Gallery ---------- */
 .lineup-img {
     width: 100%;
     height: 320px;
@@ -75,18 +137,59 @@ p  { font-size: 0.95rem; }
     }
 }
 
-.carousel-item img {
-    height: 450px;
+.main-gallery-img {
+    width: 100%;
+    height: 420px;
     object-fit: cover;
+    transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 @media (max-width: 768px) {
-    .carousel-item img {
-        height: 260px;
+    .main-gallery-img {
+        height: 250px;
     }
 }
 
-/* ---------- About: team photo (circle comes from rounded-circle) ---------- */
+.thumb-img {
+    width: 100%;
+    height: 75px;
+    object-fit: cover;
+    cursor: pointer;
+    opacity: 0.6;
+    border: 2px solid transparent;
+    transition: opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.thumb-img:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.thumb-img.active-thumb {
+    opacity: 1;
+    border-color: #dc3545;
+    transform: scale(1.04);
+}
+
+/* ---------- Star Rating Widget ---------- */
+.rating-star {
+    font-size: 1.4rem;
+    color: #ced4da;
+    cursor: pointer;
+    transition: color 0.15s ease, transform 0.15s ease;
+    display: inline-block;
+    user-select: none;
+}
+
+.rating-star:hover {
+    transform: scale(1.2);
+}
+
+.rating-star.selected {
+    color: #ffc107;
+}
+
+/* ---------- About: team photo ---------- */
 .team-photo {
     width: 150px;
     height: 150px;
@@ -187,4 +290,9 @@ p  { font-size: 0.95rem; }
 
 .popup-close:hover {
     color: #dc3545;
+}
+
+/* ---------- Multi-step Wizard (Services page) ---------- */
+.wizard-step {
+    transition: opacity 0.3s ease;
 }

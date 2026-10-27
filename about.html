@@ -17,11 +17,14 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navMenu">
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
                         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="models.html">Models</a></li>
                         <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="about.html">About</a></li>
+                        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                            <button type="button" id="theme-toggle-btn" class="btn btn-warning btn-sm">Night Mode</button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -29,39 +32,55 @@
     </header>
 
     <main class="container py-4">
-        <h1>About AutoWorld</h1>
-        <p>AutoWorld was founded with one simple goal: to connect passionate drivers with the cars of their dreams. We believe in quality, transparency, and top-tier customer service.</p>
+        <!-- Assignment 5: Language Switcher (EN / RU / KZ) & Time-of-Day Greeting -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <p id="time-greeting" class="text-danger fw-semibold mb-0"></p>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Language selector">
+                <button type="button" class="btn btn-danger lang-btn" data-lang="en">EN</button>
+                <button type="button" class="btn btn-outline-danger lang-btn" data-lang="ru">RU</button>
+                <button type="button" class="btn btn-outline-danger lang-btn" data-lang="kz">KZ</button>
+            </div>
+        </div>
 
-        <!-- Task 5: Display Current Date and Time (placed right under About AutoWorld) -->
+        <h1 id="i18n-title">About AutoWorld</h1>
+        <p id="i18n-intro">AutoWorld was founded with one simple goal: to connect passionate drivers with the cars of their dreams. We believe in quality, transparency, and top-tier customer service.</p>
+
+        <!-- Assignment 5: "Read More" button toggling style.display -->
+        <div id="extra-story" style="display: none;" class="p-3 bg-white border rounded mb-3 shadow-sm">
+            <p id="i18n-extra-story" class="mb-0">Since opening our first showroom in Astana, we have delivered over 1,500 inspected vehicles across Kazakhstan. Our certified technicians test every engine, battery pack, and safety system so our clients drive away with complete confidence.</p>
+        </div>
+        <button type="button" id="read-more-btn" class="btn btn-outline-danger btn-sm mb-2">Read More About Our History</button>
+
+        <!-- Task 5: Display Current Date and Time -->
         <section class="visit-section my-4">
             <div class="p-4 bg-white border rounded text-center shadow-sm">
-                <h2 class="h4 text-danger mb-2">Visit Our Showroom</h2>
-                <p class="text-secondary mb-2">Open Monday – Saturday: 9:00 AM – 7:00 PM</p>
-                <p class="mb-0">Current Local Date &amp; Time: <strong id="current-datetime" class="text-dark"></strong></p>
+                <h2 id="i18n-visit-title" class="h4 text-danger mb-2">Visit Our Showroom</h2>
+                <p id="i18n-visit-hours" class="text-secondary mb-2">Open Monday – Saturday: 9:00 AM – 7:00 PM</p>
+                <p class="mb-0"><span id="i18n-time-label">Current Local Date &amp; Time:</span> <strong id="current-datetime" class="text-dark"></strong></p>
             </div>
         </section>
 
         <hr class="my-4">
 
         <section class="core-values my-4">
-            <h2>Our Core Values</h2>
+            <h2 id="i18n-values-title">Our Core Values</h2>
             <div class="row g-4 text-center">
                 <div class="col-md-6 col-lg-4">
                     <div class="p-3">
-                        <h3 class="h5 text-danger">Trust</h3>
-                        <p>No hidden fees.</p>
+                        <h3 id="i18n-val1-title" class="h5 text-danger">Trust</h3>
+                        <p id="i18n-val1-desc">No hidden fees.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
                     <div class="p-3">
-                        <h3 class="h5 text-danger">Quality</h3>
-                        <p>Every car passes a 150-point inspection.</p>
+                        <h3 id="i18n-val2-title" class="h5 text-danger">Quality</h3>
+                        <p id="i18n-val2-desc">Every car passes a 150-point inspection.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
                     <div class="p-3">
-                        <h3 class="h5 text-danger">Innovation</h3>
-                        <p>The latest EV and hybrid models.</p>
+                        <h3 id="i18n-val3-title" class="h5 text-danger">Innovation</h3>
+                        <p id="i18n-val3-desc">The latest EV and hybrid models.</p>
                     </div>
                 </div>
             </div>
@@ -70,22 +89,22 @@
         <hr class="my-4">
 
         <section class="team-section my-4">
-            <h2>Meet Our Team</h2>
+            <h2 id="i18n-team-title">Meet Our Team</h2>
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="card h-100 text-center p-4 shadow-sm">
                         <img src="images/student1.jpeg" alt="Portrait of Temirlan Tatken" class="team-photo rounded-circle border border-3 border-danger mx-auto mb-3">
                         <h3>Temirlan Tatken</h3>
-                        <p class="text-secondary fst-italic">Frontend Developer &amp; Designer</p>
-                        <p>Responsible for the Services and About pages. Loves classic muscle cars and clean code.</p>
+                        <p id="i18n-member1-role" class="text-secondary fst-italic">Frontend Developer &amp; Designer</p>
+                        <p id="i18n-member1-bio">Responsible for the Services and About pages. Loves classic muscle cars and clean code.</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="card h-100 text-center p-4 shadow-sm">
                         <img src="images/student2.jpg" alt="Portrait of Yerassyl Aldebayev" class="team-photo rounded-circle border border-3 border-danger mx-auto mb-3">
                         <h3>Yerassyl Aldebayev</h3>
-                        <p class="text-secondary fst-italic">Frontend Developer</p>
-                        <p>Created the Home and Models pages. Enjoys Formula 1 racing and responsive web design.</p>
+                        <p id="i18n-member2-role" class="text-secondary fst-italic">Frontend Developer</p>
+                        <p id="i18n-member2-bio">Created the Home and Models pages. Enjoys Formula 1 racing and responsive web design.</p>
                     </div>
                 </div>
             </div>
@@ -100,5 +119,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/datetime.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/language.js"></script>
 </body>
 </html>

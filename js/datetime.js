@@ -19,9 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
             year: "numeric"
         });
 
-        // "10:45 AM" (newer browsers put a special space before AM/PM, so we replace it)
+        // "10:45:30" (newer browsers put a special space before AM/PM, so we replace it)
         const timePart = date
-            .toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })
+            .toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", second: "2-digit", hour12: false })
             .replace(/[\u202f\u00a0]/g, " ");
 
         return datePart + ", " + timePart;

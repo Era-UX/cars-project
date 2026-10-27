@@ -17,11 +17,14 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navMenu">
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
                         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="models.html">Models</a></li>
                         <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                            <button type="button" id="theme-toggle-btn" class="btn btn-warning btn-sm">Night Mode</button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -30,12 +33,31 @@
 
     <main class="container py-4">
         <h1>Our Car Models</h1>
-        <p>Compare specs and prices across our current lineup.</p>
+        <p>Compare specs, filter by category, and rate our current lineup.</p>
 
         <img src="images/models-lineup.png" alt="Row of different car models parked side by side" class="lineup-img img-fluid rounded mb-4">
 
+        <!-- Assignment 5: Interactive Filter (Switch + Higher-Order Functions) & Star Ratings -->
+        <section class="interactive-catalog my-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <h2 class="mb-0">Interactive Showroom &amp; Ratings</h2>
+                <div class="btn-group flex-wrap" role="group" aria-label="Filter models by category">
+                    <button type="button" class="btn btn-danger filter-btn" data-filter="All">All Models</button>
+                    <button type="button" class="btn btn-outline-danger filter-btn" data-filter="Sedan">Sedan</button>
+                    <button type="button" class="btn btn-outline-danger filter-btn" data-filter="SUV">SUV</button>
+                    <button type="button" class="btn btn-outline-danger filter-btn" data-filter="Electric">Electric</button>
+                    <button type="button" class="btn btn-outline-danger filter-btn" data-filter="Sports">Sports</button>
+                </div>
+            </div>
+            <p id="filter-status" class="text-secondary small mb-3">Showing all 4 verified AutoWorld models. Click on the stars to rate any vehicle!</p>
+
+            <div id="catalog-grid" class="row g-4"></div>
+        </section>
+
+        <hr class="my-4">
+
         <section class="catalog-table my-4">
-            <h2>Model Comparison</h2>
+            <h2>Model Comparison Table</h2>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered align-middle">
                     <thead class="table-dark">
@@ -83,97 +105,43 @@
 
         <hr class="my-4">
 
-        <section class="features my-4">
-            <h2>Standard Features Across All Models</h2>
-            <ul>
-                <li>Bluetooth and touchscreen infotainment</li>
-                <li>Backup camera</li>
-                <li>Lane-assist safety system</li>
-            </ul>
-        </section>
-
-        <hr class="my-4">
-
+        <!-- Assignment 5: Interactive Thumbnail Gallery + Keyboard Arrow Navigation -->
         <section class="gallery-section my-4">
-            <h2>Model Gallery</h2>
+            <h2>Interactive Model Gallery</h2>
+            <p class="text-secondary small">Click any thumbnail below or press the <strong>Left / Right Arrow Keys</strong> on your keyboard to switch photos.</p>
+
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                    <div id="modelCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#modelCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#modelCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#modelCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            <button type="button" data-bs-target="#modelCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                            <button type="button" data-bs-target="#modelCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                            <button type="button" data-bs-target="#modelCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
-                            <button type="button" data-bs-target="#modelCarousel" data-bs-slide-to="6" aria-label="Slide 7"></button>
-                            <button type="button" data-bs-target="#modelCarousel" data-bs-slide-to="7" aria-label="Slide 8"></button>
-                            <button type="button" data-bs-target="#modelCarousel" data-bs-slide-to="8" aria-label="Slide 9"></button>
-                        </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="images/gallery-1.jpeg" class="d-block w-100" alt="Aurora S sedan front view">
-                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                    <h3 class="h5">Aurora S</h3>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="images/gallery-2.jpeg" class="d-block w-100" alt="Aurora S sedan interior">
-                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                    <h3 class="h5">Aurora S Interior</h3>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="images/gallery-3.jpeg" class="d-block w-100" alt="Trailblazer X SUV front view">
-                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                    <h3 class="h5">Trailblazer X</h3>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="images/gallery-4.jpeg" class="d-block w-100" alt="Trailblazer X SUV rear view">
-                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                    <h3 class="h5">Trailblazer X Rear</h3>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="images/gallery-5.jpeg" class="d-block w-100" alt="Volt Pro electric car charging">
-                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                    <h3 class="h5">Volt Pro</h3>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="images/gallery-6.jpeg" class="d-block w-100" alt="Volt Pro electric car dashboard">
-                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                    <h3 class="h5">Volt Pro Dashboard</h3>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="images/gallery-7.jpeg" class="d-block w-100" alt="Raptor GT sports car front view">
-                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                    <h3 class="h5">Raptor GT</h3>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="images/gallery-8.jpeg" class="d-block w-100" alt="Raptor GT sports car side view">
-                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                    <h3 class="h5">Raptor GT Side</h3>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="images/gallery-9.jpeg" class="d-block w-100" alt="All AutoWorld models parked together">
-                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
-                                    <h3 class="h5">Full Lineup</h3>
-                                </div>
+                    <div class="bg-white p-3 border rounded shadow-sm">
+                        <div class="position-relative">
+                            <img id="gallery-main-img" src="images/gallery-1.jpeg" class="main-gallery-img rounded" alt="Aurora S sedan front view">
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <button type="button" id="gallery-prev-btn" class="btn btn-outline-danger btn-sm">&larr; Prev</button>
+                                <strong id="gallery-main-caption" class="text-danger">Aurora S — Exterior Front View</strong>
+                                <button type="button" id="gallery-next-btn" class="btn btn-outline-danger btn-sm">Next &rarr;</button>
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#modelCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#modelCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
+
+                        <div class="row row-cols-3 row-cols-md-6 g-2 mt-2">
+                            <div class="col">
+                                <img src="images/gallery-1.jpeg" class="thumb-img rounded active-thumb" alt="Aurora S front" data-caption="Aurora S — Exterior Front View">
+                            </div>
+                            <div class="col">
+                                <img src="images/gallery-2.jpeg" class="thumb-img rounded" alt="Aurora S interior" data-caption="Aurora S — Luxury Cabin Interior">
+                            </div>
+                            <div class="col">
+                                <img src="images/gallery-3.jpeg" class="thumb-img rounded" alt="Trailblazer X front" data-caption="Trailblazer X — All-Terrain SUV">
+                            </div>
+                            <div class="col">
+                                <img src="images/gallery-5.jpeg" class="thumb-img rounded" alt="Volt Pro charging" data-caption="Volt Pro — Dual Motor Fast Charging">
+                            </div>
+                            <div class="col">
+                                <img src="images/gallery-7.jpeg" class="thumb-img rounded" alt="Raptor GT front" data-caption="Raptor GT — 4.0L V8 Track Edition">
+                            </div>
+                            <div class="col">
+                                <img src="images/gallery-9.jpeg" class="thumb-img rounded" alt="Full AutoWorld lineup" data-caption="AutoWorld — Complete Showroom Lineup">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -236,5 +204,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/accordion.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/catalog.js"></script>
+    <script src="js/gallery.js"></script>
 </body>
 </html>
