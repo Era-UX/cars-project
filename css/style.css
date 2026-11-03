@@ -1,13 +1,14 @@
 /* ===================================================
-   AutoWorld - custom styles (Assignments 4 & 5)
+   AutoWorld - Custom Styles (Assignments 4, 5 & 6)
    =================================================== */
 
-/* ---------- Fonts & Body Background (Task 4) ---------- */
+/* ---------- Fonts & Body Background ---------- */
 body {
     font-family: 'Trebuchet MS', Arial, sans-serif;
     line-height: 1.6;
     background-color: #f8f9fa;
     color: #212529;
+    padding-top: 95px; /* Increased offset so fixed header doesn't cover content */
     transition: background-color 0.5s ease, color 0.3s ease;
 }
 
@@ -15,10 +16,125 @@ h1, h2, h3 {
     font-family: Georgia, 'Times New Roman', serif;
 }
 
-/* ---------- Assignment 5: Night Mode Theme ---------- */
+/* ---------- Fixed Header & Scroll Progress Bar ---------- */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1040;
+    background-color: #212529;
+}
+
+#scroll-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, #dc3545, #ff758c, #ffc107);
+    z-index: 1050;
+    box-shadow: 0 0 8px rgba(220, 53, 69, 0.7);
+}
+
+/* ---------- Assignment 6 Task 2: Autocomplete Dropdown ---------- */
+.search-wrapper {
+    position: relative;
+}
+
+#autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #ced4da;
+    border-top: none;
+    border-radius: 0 0 0.375rem 0.375rem;
+    z-index: 1000;
+    max-height: 220px;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.autocomplete-item {
+    padding: 0.65rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f1f1;
+    transition: background 0.15s ease;
+}
+
+.autocomplete-item:hover,
+.autocomplete-item.active {
+    background-color: #fff5f5;
+    color: #dc3545;
+    font-weight: 600;
+}
+
+/* ---------- Assignment 6 Task 3: Search Highlighting ---------- */
+mark.search-highlight {
+    background-color: #ffe066;
+    color: #000000;
+    padding: 0.1em 0.25em;
+    border-radius: 0.2em;
+    font-weight: 600;
+}
+
+/* ---------- Assignment 6 Task 5: Stats Counter Box ---------- */
+.stats-counter-card {
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: 1.5rem 1rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stats-counter-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.stat-number {
+    font-size: 2.3rem;
+    font-weight: bold;
+    color: #dc3545;
+    line-height: 1;
+}
+
+/* ---------- Assignment 6 Task 7: Toast Notification ---------- */
+#app-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1060;
+    min-width: 290px;
+    max-width: 380px;
+    display: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border-left: 5px solid #dc3545;
+}
+
+/* ---------- Assignment 6 Task 9: Lazy Loading Images ---------- */
+.lazy-img {
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    background-color: #e9ecef;
+}
+
+.lazy-img.loaded {
+    opacity: 1;
+}
+
+/* ---------- Assignment 5: Night Mode Theme Overrides ---------- */
 body.night-mode {
     background-color: #121212 !important;
     color: #e0e0e0;
+}
+
+body.night-mode header,
+body.night-mode .navbar {
+    background-color: #0a0a0a !important;
 }
 
 body.night-mode .card,
@@ -26,7 +142,9 @@ body.night-mode .bg-white,
 body.night-mode .bg-light,
 body.night-mode .faq-item,
 body.night-mode .faq-question,
-body.night-mode .popup-box {
+body.night-mode .popup-box,
+body.night-mode .stats-counter-card,
+body.night-mode #autocomplete-list {
     background-color: #1e1e1e !important;
     color: #e0e0e0 !important;
     border-color: #333333 !important;
@@ -38,7 +156,6 @@ body.night-mode .faq-answer p {
     color: #b0b0b0 !important;
 }
 
-/* Fix inputs and placeholder visibility in Night Mode */
 body.night-mode .form-control,
 body.night-mode .form-select {
     background-color: #2a2a2a !important;
@@ -51,7 +168,6 @@ body.night-mode .form-control::placeholder {
     opacity: 1;
 }
 
-/* Fix Models Comparison Table in Night Mode */
 body.night-mode .table {
     --bs-table-bg: #1e1e1e;
     --bs-table-color: #e0e0e0;
@@ -73,7 +189,7 @@ body.night-mode .table-striped > tbody > tr:nth-of-type(odd) > * {
     color: #ffffff !important;
 }
 
-/* ---------- Responsive typography (media queries) ---------- */
+/* ---------- Typography & Responsive ---------- */
 h1 { font-size: 1.8rem; }
 h2 { font-size: 1.4rem; }
 h3 { font-size: 1.15rem; }
@@ -93,7 +209,7 @@ p  { font-size: 0.95rem; }
     p  { font-size: 1.05rem; }
 }
 
-/* ---------- Home: hero image & engine animation ---------- */
+/* ---------- Components ---------- */
 .hero-img {
     width: 75%;
     max-width: 700px;
@@ -114,7 +230,6 @@ p  { font-size: 0.95rem; }
     }
 }
 
-/* ---------- Cards & Event-Triggered Animations ---------- */
 .card-img-top {
     height: 200px;
     object-fit: cover;
@@ -124,30 +239,17 @@ p  { font-size: 0.95rem; }
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ---------- Models: lineup image and Interactive Thumbnail Gallery ---------- */
 .lineup-img {
     width: 100%;
     height: 320px;
     object-fit: cover;
 }
 
-@media (max-width: 576px) {
-    .lineup-img {
-        height: 200px;
-    }
-}
-
 .main-gallery-img {
     width: 100%;
     height: 420px;
     object-fit: cover;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-@media (max-width: 768px) {
-    .main-gallery-img {
-        height: 250px;
-    }
+    transition: opacity 0.25s ease;
 }
 
 .thumb-img {
@@ -171,7 +273,6 @@ p  { font-size: 0.95rem; }
     transform: scale(1.04);
 }
 
-/* ---------- Star Rating Widget ---------- */
 .rating-star {
     font-size: 1.4rem;
     color: #ced4da;
@@ -189,14 +290,13 @@ p  { font-size: 0.95rem; }
     color: #ffc107;
 }
 
-/* ---------- About: team photo ---------- */
 .team-photo {
     width: 150px;
     height: 150px;
     object-fit: cover;
 }
 
-/* ---------- Task 2: FAQ Accordion (Models page) ---------- */
+/* ---------- FAQ Accordion ---------- */
 .faq-item {
     background-color: #ffffff;
     border: 1px solid #dee2e6;
@@ -251,7 +351,7 @@ p  { font-size: 0.95rem; }
     color: #495057;
 }
 
-/* ---------- Task 3: Popup Subscription Form (Home page) ---------- */
+/* ---------- Popup Subscription Form ---------- */
 .popup-overlay {
     display: none;
     position: fixed;
@@ -292,7 +392,6 @@ p  { font-size: 0.95rem; }
     color: #dc3545;
 }
 
-/* ---------- Multi-step Wizard (Services page) ---------- */
 .wizard-step {
     transition: opacity 0.3s ease;
 }

@@ -2,11 +2,7 @@
 // 1. Multi-step form navigated via "Next" and "Back" buttons using a callback function
 // 2. Objects & Methods: financing calculator object computing monthly installment dynamically
 // 3. Reset button using document.querySelectorAll('input').forEach(input => input.value = '')
-// 4. Strict real-world validation:
-//    - Full Name: letters and spaces only (no numbers or symbols)
-//    - Email: strict alphanumeric format (no special symbols like !#$% or spaces)
-//    - Password: at least 8 characters and no spaces allowed
-//    - Confirm Password: must match password
+// 4. Strict real-world validation
 
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("booking-form");
@@ -30,16 +26,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmInput = document.getElementById("reg-confirm");
     const successMessage = document.getElementById("signup-success");
 
-    // Only letters (English, Russian, Kazakh) and single spaces between words
     const namePattern = /^[\p{L}]+(?:\s+[\p{L}]+)*$/u;
-
-    // Strict email: letters and numbers, optional single dot/underscore/hyphen, valid domain
     const strictEmailPattern = /^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*@[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*(\.[a-zA-Z]{2,})+$/;
-
     const minPasswordLength = 8;
     let currentStep = 0;
 
-    // Financing Calculator Object with Method
     const financeCalculator = {
         prices: {
             "Aurora S (Sedan)": 24500,
@@ -69,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
         updateMonthlyEstimate();
     }
 
-    // Callback function to display the correct step and update progress bar
     function navigateStep(targetStep, onStepChangeCallback) {
         steps.forEach(function (stepDiv, index) {
             stepDiv.style.display = index === targetStep ? "block" : "none";
@@ -104,7 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Assignment 5 Event Listener: Reset button clearing all inputs with querySelectorAll().forEach()
     if (resetBtn) {
         resetBtn.addEventListener("click", function () {
             document.querySelectorAll("#booking-form input").forEach(function (input) {
@@ -143,7 +132,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const rawPassword = passwordInput.value;
         const rawConfirm = confirmInput.value;
 
-        // 1. Full Name validation (required, letters only, no numbers or symbols)
         if (cleanName === "") {
             showError(nameInput, "Please enter your full name.");
             isValid = false;
@@ -154,7 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
             clearError(nameInput);
         }
 
-        // 2. Email validation (required, no spaces, no invalid symbols before/after @)
         if (cleanEmail === "") {
             showError(emailInput, "Please enter your email address.");
             isValid = false;
@@ -165,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
             clearError(emailInput);
         }
 
-        // 3. Password validation (required, no spaces allowed, at least 8 characters)
         if (rawPassword.trim() === "") {
             showError(passwordInput, "Please enter a password (cannot be blank spaces).");
             isValid = false;
@@ -179,7 +165,6 @@ document.addEventListener("DOMContentLoaded", function () {
             clearError(passwordInput);
         }
 
-        // 4. Confirm Password validation
         if (rawConfirm.trim() === "") {
             showError(confirmInput, "Please confirm your password.");
             isValid = false;
@@ -190,12 +175,10 @@ document.addEventListener("DOMContentLoaded", function () {
             clearError(confirmInput);
         }
 
+        // NOTE: Sound trigger removed from here; it now fires in jquery-services.js after the spinner!
         if (isValid) {
-            if (typeof playNotificationChime === "function") {
-                playNotificationChime();
-            }
             const selectedCar = carSelect ? carSelect.value : "your selected model";
-            successMessage.textContent = "Client profile created! Your test drive for the " + selectedCar + " has been booked.";
+            successMessage.textContent = "Client profile created! Your application for the " + selectedCar + " has been logged.";
         }
     });
 });

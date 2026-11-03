@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us & Team - AutoWorld Cars</title>
+    <title>About Us - AutoWorld Cars</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
+    <header class="fixed-top shadow-sm">
         <nav id="main-nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand text-danger fw-bold fs-4" href="index.html">AutoWorld</a>
@@ -29,10 +30,10 @@
                 </div>
             </div>
         </nav>
+        <div id="scroll-progress-bar"></div>
     </header>
 
-    <main class="container py-4">
-        <!-- Assignment 5: Language Switcher (EN / RU / KZ) & Time-of-Day Greeting -->
+    <main class="container py-4 mt-3">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
             <p id="time-greeting" class="text-danger fw-semibold mb-0"></p>
             <div class="btn-group btn-group-sm" role="group" aria-label="Language selector">
@@ -45,18 +46,31 @@
         <h1 id="i18n-title">About AutoWorld</h1>
         <p id="i18n-intro">AutoWorld was founded with one simple goal: to connect passionate drivers with the cars of their dreams. We believe in quality, transparency, and top-tier customer service.</p>
 
-        <!-- Assignment 5: "Read More" button toggling style.display -->
         <div id="extra-story" style="display: none;" class="p-3 bg-white border rounded mb-3 shadow-sm">
             <p id="i18n-extra-story" class="mb-0">Since opening our first showroom in Astana, we have delivered over 1,500 inspected vehicles across Kazakhstan. Our certified technicians test every engine, battery pack, and safety system so our clients drive away with complete confidence.</p>
         </div>
         <button type="button" id="read-more-btn" class="btn btn-outline-danger btn-sm mb-2">Read More About Our History</button>
 
-        <!-- Task 5: Display Current Date and Time -->
         <section class="visit-section my-4">
             <div class="p-4 bg-white border rounded text-center shadow-sm">
                 <h2 id="i18n-visit-title" class="h4 text-danger mb-2">Visit Our Showroom</h2>
                 <p id="i18n-visit-hours" class="text-secondary mb-2">Open Monday – Saturday: 9:00 AM – 7:00 PM</p>
-                <p class="mb-0"><span id="i18n-time-label">Current Local Date &amp; Time:</span> <strong id="current-datetime" class="text-dark"></strong></p>
+                <p class="mb-3"><span id="i18n-time-label">Current Local Date &amp; Time:</span> <strong id="current-datetime" class="text-dark"></strong></p>
+
+                <div class="row g-2 justify-content-center mt-2">
+                    <div class="col-md-5">
+                        <div class="p-2 border rounded bg-light d-flex justify-content-between align-items-center">
+                            <span id="i18n-address" class="small fw-semibold">Allur Auto, Turan Ave 53, Astana</span>
+                            <button type="button" id="i18n-btn-address" class="btn btn-outline-danger btn-sm copy-btn ms-2" data-copy-target="#i18n-address">Copy Address</button>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="p-2 border rounded bg-light d-flex justify-content-between align-items-center">
+                            <span id="i18n-phone" class="small fw-semibold">+7(7007) 70-00-00</span>
+                            <button type="button" id="i18n-btn-phone" class="btn btn-outline-danger btn-sm copy-btn ms-2" data-copy-target="#i18n-phone">Copy Phone</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -93,7 +107,7 @@
             <div class="row g-4">
                 <div class="col-md-6">
                     <div class="card h-100 text-center p-4 shadow-sm">
-                        <img src="images/student1.jpeg" alt="Portrait of Temirlan Tatken" class="team-photo rounded-circle border border-3 border-danger mx-auto mb-3">
+                        <img src="images/why-choose.jpg" data-src="images/student1.jpeg" alt="Portrait of Temirlan Tatken" class="team-photo lazy-img rounded-circle border border-3 border-danger mx-auto mb-3">
                         <h3>Temirlan Tatken</h3>
                         <p id="i18n-member1-role" class="text-secondary fst-italic">Frontend Developer &amp; Designer</p>
                         <p id="i18n-member1-bio">Responsible for the Services and About pages. Loves classic muscle cars and clean code.</p>
@@ -101,7 +115,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="card h-100 text-center p-4 shadow-sm">
-                        <img src="images/student2.jpg" alt="Portrait of Yerassyl Aldebayev" class="team-photo rounded-circle border border-3 border-danger mx-auto mb-3">
+                        <img src="images/why-choose.jpg" data-src="images/student2.jpg" alt="Portrait of Yerassyl Aldebayev" class="team-photo lazy-img rounded-circle border border-3 border-danger mx-auto mb-3">
                         <h3>Yerassyl Aldebayev</h3>
                         <p id="i18n-member2-role" class="text-secondary fst-italic">Frontend Developer</p>
                         <p id="i18n-member2-bio">Created the Home and Models pages. Enjoys Formula 1 racing and responsive web design.</p>
@@ -110,6 +124,16 @@
             </div>
         </section>
     </main>
+
+    <div id="app-toast" class="card shadow">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-2">
+            <strong id="toast-title">Notification</strong>
+            <button type="button" id="toast-close-btn" class="btn-close btn-close-white btn-sm" aria-label="Close"></button>
+        </div>
+        <div class="card-body py-2">
+            <p id="toast-body" class="mb-0 small"></p>
+        </div>
+    </div>
 
     <footer class="bg-dark text-white text-center py-3 mt-4">
         <div class="container">
@@ -121,5 +145,8 @@
     <script src="js/datetime.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/language.js"></script>
+    <script src="js/jquery-ux.js"></script>
+    <script src="js/jquery-services.js"></script>
+    <script src="js/jquery-features.js"></script>
 </body>
 </html>

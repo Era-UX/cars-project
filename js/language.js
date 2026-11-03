@@ -1,4 +1,4 @@
-// language.js - Assignment 5 (About page):
+// language.js - Assignment 5 & 6 (About page):
 // 1. Switch Statement for Language Selector (English, Russian, Kazakh)
 // 2. Time-of-day dynamic greeting translated in all 3 languages
 // 3. "Read More" button toggling visibility via style.display
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let currentLang = "en";
 
-    // Full Language Dictionary Objects
+    // Full Language Dictionary Objects (Updated with Copy/Toast translations)
     const translations = {
         en: {
             morning: "Good Morning! Welcome to the AutoWorld Showroom.",
@@ -25,6 +25,13 @@ document.addEventListener("DOMContentLoaded", function () {
             visitTitle: "Visit Our Showroom",
             visitHours: "Open Monday – Saturday: 9:00 AM – 7:00 PM",
             timeLabel: "Current Local Date & Time:",
+            address: "Turan Ave 53, Astana",
+            phone: "+7(7007) 70-00-00",
+            btnAddress: "Copy Address",
+            btnPhone: "Copy Phone",
+            btnCopied: "Copied!",
+            toastCopyTitle: "Clipboard",
+            toastCopyBody: "copied to your clipboard!",
             valuesTitle: "Our Core Values",
             val1Title: "Trust",
             val1Desc: "No hidden fees.",
@@ -50,6 +57,13 @@ document.addEventListener("DOMContentLoaded", function () {
             visitTitle: "Посетите наш автосалон",
             visitHours: "Открыто Пн – Сб: 9:00 – 19:00",
             timeLabel: "Местная дата и время:",
+            address: "Пр. Туран 53, Астана",
+            phone: "+7(7007) 70-00-00",
+            btnAddress: "Копировать адрес",
+            btnPhone: "Копировать номер",
+            btnCopied: "Скопировано!",
+            toastCopyTitle: "Буфер обмена",
+            toastCopyBody: "скопировано в буфер обмена!",
             valuesTitle: "Наши главные ценности",
             val1Title: "Доверие",
             val1Desc: "Никаких скрытых комиссий.",
@@ -75,6 +89,13 @@ document.addEventListener("DOMContentLoaded", function () {
             visitTitle: "Біздің автосалонға келіңіз",
             visitHours: "Дүйсенбі – Сенбі ашық: 9:00 – 19:00",
             timeLabel: "Жергілікті күн мен уақыт:",
+            address: "Тұран даңғылы 53, Астана",
+            phone: "+7(7007) 70-00-00",
+            btnAddress: "Мекенжайды көшіру",
+            btnPhone: "Нөмірді көшіру",
+            btnCopied: "Көшірілді!",
+            toastCopyTitle: "Алмасу буфері",
+            toastCopyBody: "алмасу буферіне көшірілді!",
             valuesTitle: "Біздің негізгі құндылықтарымыз",
             val1Title: "Сенім",
             val1Desc: "Ешқандай жасырын төлемдер жоқ.",
@@ -90,7 +111,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // 1. Time of Day Greeting using a switch(true) statement
     function updateGreeting(pack) {
         if (!timeGreeting) return;
         const hour = new Date().getHours();
@@ -108,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Helper to update textContent safely by ID
     function setText(id, text) {
         const el = document.getElementById(id);
         if (el) {
@@ -116,7 +135,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // 2. Switch Statement applying the selected language pack
     function applyLanguage(langCode) {
         currentLang = langCode;
         let selectedPack;
@@ -134,6 +152,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
         }
 
+        // Expose the current language pack to the global window for jQuery files to read
+        window.currentAppLangPack = selectedPack;
+
         updateGreeting(selectedPack);
 
         setText("i18n-title", selectedPack.title);
@@ -142,6 +163,12 @@ document.addEventListener("DOMContentLoaded", function () {
         setText("i18n-visit-title", selectedPack.visitTitle);
         setText("i18n-visit-hours", selectedPack.visitHours);
         setText("i18n-time-label", selectedPack.timeLabel);
+        
+        setText("i18n-address", selectedPack.address);
+        setText("i18n-phone", selectedPack.phone);
+        setText("i18n-btn-address", selectedPack.btnAddress);
+        setText("i18n-btn-phone", selectedPack.btnPhone);
+
         setText("i18n-values-title", selectedPack.valuesTitle);
         setText("i18n-val1-title", selectedPack.val1Title);
         setText("i18n-val1-desc", selectedPack.val1Desc);
@@ -161,7 +188,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // 3. "Read More" button toggling style.display
     if (readMoreBtn && extraStory) {
         readMoreBtn.addEventListener("click", function () {
             const pack = translations[currentLang] || translations.en;
@@ -189,6 +215,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Initialize default English greeting on page load
     applyLanguage("en");
 });

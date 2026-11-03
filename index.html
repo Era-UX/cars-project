@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - AutoWorld Cars</title>
+    <!-- Assignment 6 Task 0: jQuery loaded first -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
+    <!-- Fixed Header holding both Navbar and Progress Bar -->
+    <header class="fixed-top shadow-sm">
         <nav id="main-nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand text-danger fw-bold fs-4" href="index.html">AutoWorld</a>
@@ -32,6 +35,8 @@
                 </div>
             </div>
         </nav>
+        <!-- Task 4: Colorful Scroll Progress Bar -->
+        <div id="scroll-progress-bar"></div>
     </header>
 
     <main class="container py-4">
@@ -44,6 +49,37 @@
                 <button type="button" id="rev-engine-btn" class="btn btn-outline-danger btn-lg">Start Engine Sound</button>
             </div>
             <p id="engine-status" class="text-danger fw-semibold small mt-2 mb-0"></p>
+        </section>
+
+        <!-- Assignment 6 Task 5: Animated Number Counters -->
+        <section id="stats-section" class="my-5">
+            <h2 class="text-center mb-4">AutoWorld in Numbers</h2>
+            <div class="row g-4 text-center">
+                <div class="col-6 col-md-3">
+                    <div class="stats-counter-card">
+                        <div class="stat-number"><span class="counter-value" data-target="1500">0</span>+</div>
+                        <p class="text-secondary small mb-0 mt-2">Cars Delivered</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stats-counter-card">
+                        <div class="stat-number"><span class="counter-value" data-target="98">0</span>%</div>
+                        <p class="text-secondary small mb-0 mt-2">Customer Satisfaction</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stats-counter-card">
+                        <div class="stat-number"><span class="counter-value" data-target="24">0</span>/7</div>
+                        <p class="text-secondary small mb-0 mt-2">Roadside Support</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stats-counter-card">
+                        <div class="stat-number"><span class="counter-value" data-target="5">0</span> Yrs</div>
+                        <p class="text-secondary small mb-0 mt-2">Standard Warranty</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="intro my-4">
@@ -71,74 +107,41 @@
         <section class="highlights my-4">
             <h2>Popular Categories</h2>
             <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
-            <div class="col">
-                <div class="card h-100 text-center">
-                    <img src="images/category-sedan.jpg" class="card-img-top" alt="Sedan car model">
-                    <div class="card-body">
-                        <h3 class="card-title h5">Sedans</h3>
-                        <p class="card-text">Comfortable and efficient cars for everyday driving.</p>
-                        <a href="models.html" class="btn btn-danger btn-sm">View Models</a>
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <img src="images/category-sedan.jpg" class="card-img-top" alt="Sedan car model">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Sedans</h3>
+                            <p class="card-text">Comfortable and efficient cars for everyday driving.</p>
+                            <a href="models.html" class="btn btn-danger btn-sm">View Models</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card h-100 text-center">
-                    <img src="images/category-suv.jpg" class="card-img-top" alt="SUV car model">
-                    <div class="card-body">
-                        <h3 class="card-title h5">SUVs</h3>
-                        <p class="card-text">Spacious vehicles built for families and road trips.</p>
-                        <a href="models.html" class="btn btn-danger btn-sm">View Models</a>
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <img src="images/category-suv.jpg" class="card-img-top" alt="SUV car model">
+                        <div class="card-body">
+                            <h3 class="card-title h5">SUVs</h3>
+                            <p class="card-text">Spacious vehicles built for families and road trips.</p>
+                            <a href="models.html" class="btn btn-danger btn-sm">View Models</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card h-100 text-center">
-                    <img src="images/category-sport.jpg" class="card-img-top" alt="Sports car model">
-                    <div class="card-body">
-                        <h3 class="card-title h5">Sports Cars</h3>
-                        <p class="card-text">High-performance cars for driving enthusiasts.</p>
-                        <a href="models.html" class="btn btn-danger btn-sm">View Models</a>
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <img src="images/category-sport.jpg" class="card-img-top" alt="Sports car model">
+                        <div class="card-body">
+                            <h3 class="card-title h5">Sports Cars</h3>
+                            <p class="card-text">High-performance cars for driving enthusiasts.</p>
+                            <a href="models.html" class="btn btn-danger btn-sm">View Models</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </section>
 
         <hr class="my-4">
 
-        <section class="featured-vehicles my-4">
-            <h2>Featured Vehicles</h2>
-            <div class="card-group">
-            <div class="card">
-                <img src="images/gallery-1.jpeg" class="card-img-top" alt="Aurora S sedan front view">
-                <div class="card-body">
-                    <h3 class="card-title h5">Aurora S</h3>
-                    <p class="card-text">A fuel-efficient sedan built for daily comfort and reliability.</p>
-                    <a href="models.html" class="btn btn-outline-danger btn-sm">View Details</a>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/gallery-3.jpeg" class="card-img-top" alt="Trailblazer X SUV front view">
-                <div class="card-body">
-                    <h3 class="card-title h5">Trailblazer X</h3>
-                    <p class="card-text">A spacious SUV designed for families and long road trips.</p>
-                    <a href="models.html" class="btn btn-outline-danger btn-sm">View Details</a>
-                </div>
-            </div>
-            <div class="card">
-                <img src="images/gallery-5.jpeg" class="card-img-top" alt="Volt Pro electric car charging">
-                <div class="card-body">
-                    <h3 class="card-title h5">Volt Pro</h3>
-                    <p class="card-text">Our latest electric vehicle with dual-motor performance.</p>
-                    <a href="models.html" class="btn btn-outline-danger btn-sm">View Details</a>
-                </div>
-            </div>
-            </div>
-        </section>
-
-        <hr class="my-4">
-
-        <!-- Newsletter Banner triggering Task 3 Popup -->
         <section class="newsletter-banner my-4 p-4 bg-white border rounded text-center shadow-sm">
             <h2 class="h4">Stay Updated with AutoWorld</h2>
             <p class="text-secondary mb-3">Receive alerts on new vehicle arrivals, seasonal promotions, and exclusive test-drive events.</p>
@@ -146,7 +149,7 @@
         </section>
     </main>
 
-    <!-- Task 3: Popup Subscription Form -->
+    <!-- Popup Subscription Form -->
     <div id="popup-overlay" class="popup-overlay">
         <div class="popup-box">
             <button type="button" id="popup-close" class="popup-close" aria-label="Close popup">&times;</button>
@@ -164,6 +167,17 @@
         </div>
     </div>
 
+    <!-- Assignment 6 Task 7: Toast Notification -->
+    <div id="app-toast" class="card shadow">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-2">
+            <strong id="toast-title">Notification</strong>
+            <button type="button" id="toast-close-btn" class="btn-close btn-close-white btn-sm" aria-label="Close"></button>
+        </div>
+        <div class="card-body py-2">
+            <p id="toast-body" class="mb-0 small"></p>
+        </div>
+    </div>
+
     <footer class="bg-dark text-white text-center py-3 mt-4">
         <div class="container">
             <p class="mb-0">&copy; 2023 AutoWorld. Project created by: <strong>Yerassyl Aldebayev</strong> and <strong>Temirlan Tatken</strong>.</p>
@@ -175,5 +189,9 @@
     <script src="js/background.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/sound.js"></script>
+    
+    <!-- Assignment 6 Scripts -->
+    <script src="js/jquery-ux.js"></script>
+    <script src="js/jquery-services.js"></script>
 </body>
 </html>
