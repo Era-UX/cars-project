@@ -1,31 +1,36 @@
-// theme.js - Assignment 5: Dynamic Style Changes (Day & Night Theme Switch)
-// Toggles the "night-mode" class on document.body and updates button text.
-
+// theme.js - Requirement 3: Light and Dark Modes with localStorage persistence
 document.addEventListener("DOMContentLoaded", function () {
-    const themeBtn = document.getElementById("theme-toggle-btn");
+    const themeToggleBtn = document.getElementById("theme-toggle-btn");
+    const THEME_KEY = "autoworld_theme";
 
-    // Apply saved theme if user switched it earlier
-    if (localStorage.getItem("autoworld-theme") === "night") {
-        document.body.classList.add("night-mode");
-        if (themeBtn) {
-            themeBtn.textContent = "Day Mode";
-        }
-    }
-
-    if (!themeBtn) {
-        return;
-    }
-
-    themeBtn.addEventListener("click", function () {
-        document.body.classList.toggle("night-mode");
-        const isNight = document.body.classList.contains("night-mode");
-
-        if (isNight) {
-            themeBtn.textContent = "Day Mode";
-            localStorage.setItem("autoworld-theme", "night");
+    function applyTheme(mode) {
+        if (mode === "night") {
+            document.body.classList.add("night-mode");
+            if (themeToggleBtn) {
+                themeToggleBtn.textContent = "Day Mode";
+                themeToggleBtn.classList.remove("btn-warning");
+                themeToggleBtn.classList.add("btn-light");
+            }
         } else {
-            themeBtn.textContent = "Night Mode";
-            localStorage.setItem("autoworld-theme", "day");
+            document.body.classList.remove("night-mode");
+            if (themeToggleBtn) {
+                themeToggleBtn.textContent = "Night Mode";
+                themeToggleBtn.classList.remove("btn-light");
+                themeToggleBtn.classList.add("btn-warning");
+            }
         }
-    });
+    }
+
+    // Load saved theme from localStorage on page load
+    const savedTheme = localStorage.getItem(THEME_KEY) || "day";
+    applyTheme(savedTheme);
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", function () {
+            const isNight = document.body.classList.contains("night-mode");
+            const nextTheme = isNight ? "day" : "night";
+            localStorage.setItem(THEME_KEY, nextTheme);
+            applyTheme(nextTheme);
+        });
+    }
 });

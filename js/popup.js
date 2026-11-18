@@ -1,68 +1,71 @@
-// popup.js - Task 3: popup subscription form (Home page)
-//
-// The popup (#popup-overlay) is hidden by default: the CSS gives it "display: none".
-// JavaScript shows it by setting style.display = "flex" and hides it with "none".
-// It closes with the X button OR by clicking on the dark area outside the white box.
-
+// popup.js - Home Page Subscription Modal with Pure JS Regex Validation
 document.addEventListener("DOMContentLoaded", function () {
-    // 1. Find the elements we need
-    const openButton = document.getElementById("subscribe-btn");
-    const overlay = document.getElementById("popup-overlay");
-    const closeButton = document.getElementById("popup-close");
-    const form = document.getElementById("subscribe-form");
-    const emailInput = document.getElementById("sub-email");
-    const errorBox = document.getElementById("sub-error");
-    const successBox = document.getElementById("sub-success");
+    const subscribeBtn = document.getElementById("subscribe-btn");
+    const popupOverlay = document.getElementById("popup-overlay");
+    const popupClose = document.getElementById("popup-close");
+    const subscribeForm = document.getElementById("subscribe-form");
 
-    // Stop if the popup is not on this page
-    if (!openButton || !overlay) {
-        return;
+    const strictEmailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!subscribeBtn || !popupOverlay) return;
+
+    function resetPopup() {
+        const emailInput = document.getElementById("sub-email") || (subscribeForm && subscribeForm.querySelector("input"));
+        const subError = document.getElementById("sub-error");
+        const subSuccess = document.getElementById("sub-success");
+
+        if (emailInput) {
+            emailInput.value = "";
+            emailInput.classList.remove("is-invalid");
+        }
+        if (subError) subError.textContent = "";
+        if (subSuccess) subSuccess.textContent = "";
     }
 
-    // Strict email pattern: only letters, numbers, single dots/hyphens/underscores allowed before @,
-    // valid domain name, and a 2+ letter domain extension (no !#$%^&* or spaces allowed)
-    const strictEmailPattern = /^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*@[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*(\.[a-zA-Z]{2,})+$/;
+    subscribeBtn.addEventListener("click", function () {
+        resetPopup();
+        popupOverlay.style.display = "flex";
+    });
 
-    // 2. Show and hide the popup
-    function openPopup() {
-        overlay.style.display = "flex";
+    if (popupClose) {
+        popupClose.addEventListener("click", function () {
+            popupOverlay.style.display = "none";
+        });
     }
 
-    function closePopup() {
-        overlay.style.display = "none";
-        form.reset();                 // clear the typed email
-        errorBox.textContent = "";    // clear old messages
-        successBox.textContent = "";
-    }
-
-    openButton.addEventListener("click", openPopup);
-    closeButton.addEventListener("click", closePopup);
-
-    // 3. Click outside: a click on the dark overlay itself (not on the white box inside it)
-    overlay.addEventListener("click", function (event) {
-        if (event.target === overlay) {
-            closePopup();
+    popupOverlay.addEventListener("click", function (event) {
+        if (event.target === popupOverlay) {
+            popupOverlay.style.display = "none";
         }
     });
 
-    // 4. Check the email when the form is submitted
-    form.addEventListener("submit", function (event) {
-        event.preventDefault(); // do not reload the page
+    if (subscribeForm) {
+        subscribeForm.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-        const rawEmail = emailInput.value;
-        const email = rawEmail.trim();
-        successBox.textContent = "";
+            const emailInput = document.getElementById("sub-email") || subscribeForm.querySelector("input");
+            const subError = document.getElementById("sub-error");
+            const subSuccess = document.getElementById("sub-success");
 
-        if (email === "") {
-            errorBox.textContent = "Please enter your email address.";
-        } else if (/\s/.test(email)) {
-            errorBox.textContent = "Email address cannot contain spaces.";
-        } else if (!strictEmailPattern.test(email)) {
-            errorBox.textContent = "Please enter a valid email (letters and numbers only, e.g. name@example.com).";
-        } else {
-            errorBox.textContent = "";
-            successBox.textContent = "Thank you! You are subscribed.";
-            form.reset();
-        }
-    });
+            if (subError) subError.textContent = "";
+            if (subSuccess) subSuccess.textContent = "";
+
+            const cleanVal = emailInput ? emailInput.value.trim() : "";
+
+            if (!cleanVal) {
+                if (emailInput) emailInput.classList.add("is-invalid");
+                if (subError) subError.textContent = "Please enter your email address.";
+                return;
+            }
+
+            if (!strictEmailRegex.test(cleanVal)) {
+                if (emailInput) emailInput.classList.add("is-invalid");
+                if (subError) subError.textContent = "Please enter a valid email address (e.g. name@example.com).";
+                return;
+            }
+
+            if (emailInput) emailInput.classList.remove("is-invalid");
+            if (subSuccess) subSuccess.textContent = "Thank you! " + cleanVal + " has been subscribed to AutoWorld updates.";
+        });
+    }
 });

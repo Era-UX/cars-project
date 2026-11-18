@@ -1,8 +1,4 @@
-// language.js - Assignment 5 & 6 (About page):
-// 1. Switch Statement for Language Selector (English, Russian, Kazakh)
-// 2. Time-of-day dynamic greeting translated in all 3 languages
-// 3. "Read More" button toggling visibility via style.display
-
+// language.js - Trilingual Switcher (EN / RU / KZ) for About Page
 document.addEventListener("DOMContentLoaded", function () {
     const langButtons = document.querySelectorAll(".lang-btn");
     const readMoreBtn = document.getElementById("read-more-btn");
@@ -11,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let currentLang = "en";
 
-    // Full Language Dictionary Objects (Updated with Copy/Toast translations)
     const translations = {
         en: {
             morning: "Good Morning! Welcome to the AutoWorld Showroom.",
@@ -41,9 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
             val3Desc: "The latest EV and hybrid models.",
             teamTitle: "Meet Our Team",
             member1Role: "Frontend Developer & Designer",
-            member1Bio: "Responsible for the Services and About pages. Loves classic muscle cars and clean code.",
+            member1Bio: "Responsible for the Services, Orders, Profile, and About pages. Loves classic muscle cars and clean code.",
             member2Role: "Frontend Developer",
-            member2Bio: "Created the Home and Models pages. Enjoys Formula 1 racing and responsive web design."
+            member2Bio: "Created the Home and Models pages, search filtering, and API integrations. Enjoys Formula 1 racing and responsive web design."
         },
         ru: {
             morning: "Доброе утро! Добро пожаловать в автосалон AutoWorld.",
@@ -57,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
             visitTitle: "Посетите наш автосалон",
             visitHours: "Открыто Пн – Сб: 9:00 – 19:00",
             timeLabel: "Местная дата и время:",
-            address: "Пр. Туран 53, Астана",
+            address: "пр. Туран 53, Астана",
             phone: "+7(7007) 70-00-00",
             btnAddress: "Копировать адрес",
             btnPhone: "Копировать номер",
@@ -73,9 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
             val3Desc: "Новейшие электромобили и гибридные модели.",
             teamTitle: "Наша команда",
             member1Role: "Frontend-разработчик и дизайнер",
-            member1Bio: "Отвечает за страницы услуг и информации о компании. Любит классические маслкары и чистый код.",
+            member1Bio: "Отвечает за страницы услуг, заказов, профиля и информации о компании. Любит классические маслкары и чистый код.",
             member2Role: "Frontend-разработчик",
-            member2Bio: "Создал главную страницу и каталог моделей. Увлекается Формулой-1 и адаптивным веб-дизайном."
+            member2Bio: "Создал главную страницу, каталог моделей, поиск и интеграцию API. Увлекается Формулой-1 и адаптивным веб-дизайном."
         },
         kz: {
             morning: "Қайырлы таң! AutoWorld автосалонына қош келдіңіз.",
@@ -105,9 +100,9 @@ document.addEventListener("DOMContentLoaded", function () {
             val3Desc: "Ең заманауи электромобильдер мен гибридті модельдер.",
             teamTitle: "Біздің команда",
             member1Role: "Frontend-әзірлеуші және дизайнер",
-            member1Bio: "Қызметтер және компания туралы беттерге жауапты. Классикалық спорттық көліктерді және таза кодты ұнатады.",
+            member1Bio: "Қызметтер, тапсырыстар, профиль және компания туралы беттерге жауапты. Классикалық спорттық көліктерді және таза кодты ұнатады.",
             member2Role: "Frontend-әзірлеуші",
-            member2Bio: "Басты бет пен модельдер каталогын жасады. Формула-1 жарыстарына және адаптивті веб-дизайнға қызығады."
+            member2Bio: "Басты бетті, модельдер каталогын, іздеуді және API интеграциясын жасады. Формула-1 жарыстарына және адаптивті веб-дизайнға қызығады."
         }
     };
 
@@ -130,29 +125,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function setText(id, text) {
         const el = document.getElementById(id);
-        if (el) {
-            el.textContent = text;
-        }
+        if (el) el.textContent = text;
     }
 
     function applyLanguage(langCode) {
         currentLang = langCode;
-        let selectedPack;
-
-        switch (langCode) {
-            case "ru":
-                selectedPack = translations.ru;
-                break;
-            case "kz":
-                selectedPack = translations.kz;
-                break;
-            case "en":
-            default:
-                selectedPack = translations.en;
-                break;
-        }
-
-        // Expose the current language pack to the global window for jQuery files to read
+        const selectedPack = translations[langCode] || translations.en;
         window.currentAppLangPack = selectedPack;
 
         updateGreeting(selectedPack);
@@ -163,12 +141,10 @@ document.addEventListener("DOMContentLoaded", function () {
         setText("i18n-visit-title", selectedPack.visitTitle);
         setText("i18n-visit-hours", selectedPack.visitHours);
         setText("i18n-time-label", selectedPack.timeLabel);
-        
         setText("i18n-address", selectedPack.address);
         setText("i18n-phone", selectedPack.phone);
         setText("i18n-btn-address", selectedPack.btnAddress);
         setText("i18n-btn-phone", selectedPack.btnPhone);
-
         setText("i18n-values-title", selectedPack.valuesTitle);
         setText("i18n-val1-title", selectedPack.val1Title);
         setText("i18n-val1-desc", selectedPack.val1Desc);
@@ -210,8 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
             btn.classList.remove("btn-outline-danger");
             btn.classList.add("btn-danger");
 
-            const lang = btn.getAttribute("data-lang");
-            applyLanguage(lang);
+            applyLanguage(btn.getAttribute("data-lang"));
         });
     });
 

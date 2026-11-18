@@ -22,7 +22,9 @@
                         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="models.html">Models</a></li>
                         <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="orders.html">Orders <span id="nav-order-badge" class="badge bg-danger ms-1" style="display:none;">0</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" id="nav-profile-link" href="profile.html">Profile</a></li>
                         <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
                             <button type="button" id="theme-toggle-btn" class="btn btn-warning btn-sm">Night Mode</button>
                         </li>
@@ -35,32 +37,38 @@
 
     <main class="container py-4">
         <h1>Our Car Models</h1>
-        <p>Compare specs, search in real-time, and filter our current lineup.</p>
+        <p>Compare specs, rate your favorite vehicles, and filter our 8-car showroom lineup in real time.</p>
 
         <img src="images/models-lineup.png" alt="Row of different car models parked side by side" class="lineup-img img-fluid rounded mb-4">
 
-        <!-- Assignment 6 Tasks 1 & 2: Real-time Live Search & Autocomplete -->
         <section class="search-section my-4 p-3 bg-white border rounded shadow-sm">
-            <h2 class="h5 mb-2">Search Vehicle Inventory</h2>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h2 class="h5 mb-0">Search Vehicle Inventory</h2>
+                <button type="button" id="clear-search-btn" class="btn btn-outline-secondary btn-sm">Reset Filter</button>
+            </div>
             <div class="search-wrapper">
-                <input type="text" id="model-search-input" class="form-control" placeholder="Type a model name, category, or engine (e.g. Aurora, SUV, V8, Electric)..." autocomplete="off">
+                <input type="text" id="model-search-input" class="form-control" placeholder="Type a model name, category, or engine (e.g. Aurora, Echelon, SUV, V8, Electric)..." autocomplete="off">
                 <div id="autocomplete-list"></div>
             </div>
-            <small class="text-secondary mt-1 d-block">Real-time live filtering on both catalog cards and comparison table.</small>
+            <small class="text-secondary mt-1 d-block">Click any star to rate a model (click the same star again to remove your rating).</small>
         </section>
 
-        <section class="interactive-catalog my-4">
+        <section id="showroom" class="interactive-catalog my-4">
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
                 <h2 class="mb-0">Interactive Showroom</h2>
                 <div class="btn-group flex-wrap" role="group" aria-label="Filter models by category">
-                    <button type="button" class="btn btn-danger filter-btn" data-filter="All">All Models</button>
-                    <button type="button" class="btn btn-outline-danger filter-btn" data-filter="Sedan">Sedan</button>
-                    <button type="button" class="btn btn-outline-danger filter-btn" data-filter="SUV">SUV</button>
-                    <button type="button" class="btn btn-outline-danger filter-btn" data-filter="Electric">Electric</button>
-                    <button type="button" class="btn btn-outline-danger filter-btn" data-filter="Sports">Sports</button>
+                    <button type="button" class="btn btn-danger filter-btn" data-filter="All">All Models (8)</button>
+                    <button type="button" class="btn btn-outline-danger filter-btn" data-filter="Sedan">Sedans (2)</button>
+                    <button type="button" class="btn btn-outline-danger filter-btn" data-filter="SUV">SUVs (2)</button>
+                    <button type="button" class="btn btn-outline-danger filter-btn" data-filter="Electric">Electric (2)</button>
+                    <button type="button" class="btn btn-outline-danger filter-btn" data-filter="Sports">Sports (2)</button>
                 </div>
             </div>
-            <p id="filter-status" class="text-secondary small mb-3">Showing all 4 verified AutoWorld models.</p>
+            <p id="filter-status" class="text-secondary small mb-3">Showing all 8 verified AutoWorld models.</p>
+
+            <div id="no-search-results" class="alert alert-warning text-center" style="display: none;">
+                No vehicles match your search query. Click <strong>Reset Filter</strong> above to view all 8 models.
+            </div>
 
             <div id="catalog-grid" class="row g-4"></div>
         </section>
@@ -68,7 +76,7 @@
         <hr class="my-4">
 
         <section class="catalog-table my-4">
-            <h2>Model Comparison Table</h2>
+            <h2>Full Lineup Comparison Table</h2>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered align-middle">
                     <thead class="table-dark">
@@ -80,14 +88,51 @@
                             <th scope="col">Price</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="comparison-table-body">
                         <tr><td>Aurora S</td><td>Sedan</td><td>2.0L Turbo</td><td>2025</td><td>$24,500</td></tr>
+                        <tr><td>Echelon LX</td><td>Sedan</td><td>2.5L Hybrid</td><td>2026</td><td>$29,800</td></tr>
                         <tr><td>Trailblazer X</td><td>SUV</td><td>3.0L V6</td><td>2026</td><td>$38,900</td></tr>
+                        <tr><td>Summit AWD</td><td>SUV</td><td>2.4L Turbo AWD</td><td>2026</td><td>$34,200</td></tr>
                         <tr><td>Volt Pro</td><td>Electric</td><td>Dual Motor EV</td><td>2026</td><td>$41,200</td></tr>
+                        <tr><td>Ionix GT-E</td><td>Electric</td><td>Long Range Tri-Motor EV</td><td>2026</td><td>$46,500</td></tr>
                         <tr><td>Raptor GT</td><td>Sports</td><td>4.0L V8</td><td>2025</td><td>$62,000</td></tr>
+                        <tr><td>Apex RS</td><td>Sports</td><td>3.8L Twin-Turbo</td><td>2026</td><td>$68,900</td></tr>
                     </tbody>
                 </table>
             </div>
+        </section>
+
+        <hr class="my-4">
+
+        <section class="api-section my-4 p-4 bg-white border rounded shadow-sm">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                <div>
+                    <span class="badge bg-danger mb-1">Live External API</span>
+                    <h2 class="h4 mb-0">Global Partner Brand Reference (NHTSA Vehicle Database)</h2>
+                </div>
+                <div class="d-flex gap-2 align-items-center">
+                    <label for="api-brand-select" class="small fw-semibold mb-0">Partner Brand:</label>
+                    <select id="api-brand-select" class="form-select form-select-sm" style="width: auto;">
+                        <option value="Toyota">Toyota</option>
+                        <option value="BMW">BMW</option>
+                        <option value="Mercedes-Benz">Mercedes-Benz</option>
+                        <option value="Porsche">Porsche</option>
+                        <option value="Audi">Audi</option>
+                        <option value="Hyundai">Hyundai</option>
+                    </select>
+                    <button type="button" id="fetch-api-btn" class="btn btn-danger btn-sm">Check Registry</button>
+                </div>
+            </div>
+            <p class="text-secondary small mb-3">Connected live to the official NHTSA Vehicle Registry API to verify global manufacturer model codes supported by AutoWorld's trade-in appraisal system.</p>
+
+            <div id="api-loading" class="text-center py-3" style="display: none;">
+                <div class="spinner-border text-danger spinner-border-sm me-2" role="status"></div>
+                <span class="small fw-semibold">Fetching live manufacturer registry from NHTSA API...</span>
+            </div>
+
+            <div id="api-error" class="alert alert-danger py-2 small" style="display: none;"></div>
+
+            <div id="api-results-grid" class="row g-3"></div>
         </section>
 
         <hr class="my-4">
@@ -122,7 +167,6 @@
 
         <hr class="my-4">
 
-        <!-- Assignment 6 Task 3: FAQ Search Highlighting -->
         <section class="faq-section my-4">
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
                 <h2 class="mb-0">Frequently Asked Questions</h2>
@@ -138,7 +182,7 @@
                     <span class="faq-icon">+</span>
                 </button>
                 <div class="faq-answer">
-                    <p>We offer flexible financing plans from 12 to 60 months with competitive interest rates, as well as zero-down-payment leasing options for qualified buyers.</p>
+                    <p>We offer flexible financing plans from 24 to 60 months with competitive 5% APR interest rates, as well as zero-down-payment leasing options for qualified buyers.</p>
                 </div>
             </div>
 
@@ -148,7 +192,7 @@
                     <span class="faq-icon">+</span>
                 </button>
                 <div class="faq-answer">
-                    <p>Every new vehicle includes a 5-year or 100,000 km bumper-to-bumper warranty, plus an 8-year battery warranty specifically for the Volt Pro electric model.</p>
+                    <p>Every new vehicle includes a 5-year or 100,000 km bumper-to-bumper warranty, plus an 8-year battery warranty specifically for the Volt Pro and Ionix GT-E electric models.</p>
                 </div>
             </div>
 
@@ -158,7 +202,7 @@
                     <span class="faq-icon">+</span>
                 </button>
                 <div class="faq-answer">
-                    <p>Yes! Bring your vehicle to our showroom for a free 30-minute appraisal, and you can apply its full trade-in value directly toward your new AutoWorld car.</p>
+                    <p>Yes! Bring your vehicle to our Astana showroom on Turan Ave 53 for a free 30-minute appraisal, and apply its full value directly toward your new AutoWorld car.</p>
                 </div>
             </div>
 
@@ -174,6 +218,16 @@
         </section>
     </main>
 
+    <div id="app-toast" class="card shadow">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-2">
+            <strong id="toast-title">Notification</strong>
+            <button type="button" id="toast-close-btn" class="btn-close btn-close-white btn-sm" aria-label="Close"></button>
+        </div>
+        <div class="card-body py-2">
+            <p id="toast-body" class="mb-0 small"></p>
+        </div>
+    </div>
+
     <footer class="bg-dark text-white text-center py-3 mt-4">
         <div class="container">
             <p class="mb-0">&copy; 2023 AutoWorld. Project created by: <strong>Yerassyl Aldebayev</strong> and <strong>Temirlan Tatken</strong>.</p>
@@ -181,13 +235,13 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/accordion.js"></script>
-    <script src="js/theme.js"></script>
     <script src="js/catalog.js"></script>
     <script src="js/gallery.js"></script>
-    
-    <!-- Assignment 6 Scripts -->
+    <script src="js/api.js"></script>
     <script src="js/jquery-ux.js"></script>
+    <script src="js/jquery-services.js"></script>
     <script src="js/jquery-search.js"></script>
 </body>
 </html>

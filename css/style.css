@@ -1,19 +1,38 @@
 /* ===================================================
-   AutoWorld - Custom Styles (Assignments 4, 5 & 6)
+   AutoWorld - Final Project Master Stylesheet
    =================================================== */
 
-/* ---------- Fonts & Body Background ---------- */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     font-family: 'Trebuchet MS', Arial, sans-serif;
     line-height: 1.6;
     background-color: #f8f9fa;
     color: #212529;
-    padding-top: 95px; /* Increased offset so fixed header doesn't cover content */
-    transition: background-color 0.5s ease, color 0.3s ease;
+    padding-top: 84px;
+    transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+main,
+body > .container {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
 }
 
 h1, h2, h3 {
     font-family: Georgia, 'Times New Roman', serif;
+}
+
+#showroom {
+    scroll-margin-top: 95px;
 }
 
 /* ---------- Fixed Header & Scroll Progress Bar ---------- */
@@ -37,7 +56,36 @@ header {
     box-shadow: 0 0 8px rgba(220, 53, 69, 0.7);
 }
 
-/* ---------- Assignment 6 Task 2: Autocomplete Dropdown ---------- */
+/* ---------- Animated Button & UI Effects ---------- */
+.btn {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.25);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.card,
+.catalog-card,
+.order-card,
+.api-model-card {
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.card:hover,
+.catalog-card:hover,
+.order-card:hover,
+.api-model-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* ---------- Autocomplete Dropdown ---------- */
 .search-wrapper {
     position: relative;
 }
@@ -72,7 +120,7 @@ header {
     font-weight: 600;
 }
 
-/* ---------- Assignment 6 Task 3: Search Highlighting ---------- */
+/* ---------- Search Highlighting ---------- */
 mark.search-highlight {
     background-color: #ffe066;
     color: #000000;
@@ -81,7 +129,7 @@ mark.search-highlight {
     font-weight: 600;
 }
 
-/* ---------- Assignment 6 Task 5: Stats Counter Box ---------- */
+/* ---------- Stats Counter Card ---------- */
 .stats-counter-card {
     background: #ffffff;
     border: 1px solid #dee2e6;
@@ -102,20 +150,20 @@ mark.search-highlight {
     line-height: 1;
 }
 
-/* ---------- Assignment 6 Task 7: Toast Notification ---------- */
+/* ---------- Toast Notification ---------- */
 #app-toast {
     position: fixed;
     bottom: 24px;
     right: 24px;
     z-index: 1060;
     min-width: 290px;
-    max-width: 380px;
+    max-width: 390px;
     display: none;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
     border-left: 5px solid #dc3545;
 }
 
-/* ---------- Assignment 6 Task 9: Lazy Loading Images ---------- */
+/* ---------- Lazy Loading Images ---------- */
 .lazy-img {
     opacity: 0;
     transition: opacity 0.6s ease-in-out;
@@ -126,7 +174,7 @@ mark.search-highlight {
     opacity: 1;
 }
 
-/* ---------- Assignment 5: Night Mode Theme Overrides ---------- */
+/* ---------- Persistent Dark Mode Overrides ---------- */
 body.night-mode {
     background-color: #121212 !important;
     color: #e0e0e0;
@@ -144,6 +192,8 @@ body.night-mode .faq-item,
 body.night-mode .faq-question,
 body.night-mode .popup-box,
 body.night-mode .stats-counter-card,
+body.night-mode .api-model-card,
+body.night-mode .order-card,
 body.night-mode #autocomplete-list {
     background-color: #1e1e1e !important;
     color: #e0e0e0 !important;
@@ -151,9 +201,10 @@ body.night-mode #autocomplete-list {
 }
 
 body.night-mode .text-secondary,
+body.night-mode .text-muted,
 body.night-mode .text-dark,
 body.night-mode .faq-answer p {
-    color: #b0b0b0 !important;
+    color: #b5b5b5 !important;
 }
 
 body.night-mode .form-control,
@@ -164,7 +215,7 @@ body.night-mode .form-select {
 }
 
 body.night-mode .form-control::placeholder {
-    color: #aaaaaa !important;
+    color: #999999 !important;
     opacity: 1;
 }
 
@@ -189,7 +240,7 @@ body.night-mode .table-striped > tbody > tr:nth-of-type(odd) > * {
     color: #ffffff !important;
 }
 
-/* ---------- Typography & Responsive ---------- */
+/* ---------- Responsive Typography ---------- */
 h1 { font-size: 1.8rem; }
 h2 { font-size: 1.4rem; }
 h3 { font-size: 1.15rem; }
@@ -209,7 +260,7 @@ p  { font-size: 0.95rem; }
     p  { font-size: 1.05rem; }
 }
 
-/* ---------- Components ---------- */
+/* ---------- Showroom & Gallery Components ---------- */
 .hero-img {
     width: 75%;
     max-width: 700px;
@@ -231,12 +282,8 @@ p  { font-size: 0.95rem; }
 }
 
 .card-img-top {
-    height: 200px;
+    height: 205px;
     object-fit: cover;
-}
-
-.catalog-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .lineup-img {
@@ -283,7 +330,7 @@ p  { font-size: 0.95rem; }
 }
 
 .rating-star:hover {
-    transform: scale(1.2);
+    transform: scale(1.25);
 }
 
 .rating-star.selected {
@@ -394,4 +441,10 @@ p  { font-size: 0.95rem; }
 
 .wizard-step {
     transition: opacity 0.3s ease;
+}
+
+.service-mode-btn.active {
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+    border-color: #dc3545 !important;
 }

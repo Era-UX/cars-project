@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - AutoWorld Cars</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="fixed-top shadow-sm">
+        <nav id="main-nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand text-danger fw-bold fs-4" href="index.html">AutoWorld</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+                        aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="models.html">Models</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="orders.html">Orders <span id="nav-order-badge" class="badge bg-danger ms-1" style="display:none;">0</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" id="nav-profile-link" href="profile.html">Profile</a></li>
+                        <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                            <button type="button" id="theme-toggle-btn" class="btn btn-warning btn-sm">Night Mode</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div id="scroll-progress-bar"></div>
+    </header>
+
+    <main class="container py-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <div>
+                <h1 class="mb-1">My Orders &amp; Test Drives</h1>
+                <p class="text-secondary mb-0">Track and manage all vehicle financing orders and showroom test-drive bookings.</p>
+            </div>
+            <div id="orders-header-actions" class="d-flex gap-2" style="display: none;">
+                <a href="services.html" class="btn btn-danger btn-sm">+ New Order / Test Drive</a>
+                <button type="button" id="clear-all-orders-btn" class="btn btn-outline-secondary btn-sm">Clear All</button>
+            </div>
+        </div>
+
+        <!-- Guest State: Shown when user is NOT logged in -->
+        <div id="orders-guest-state" class="p-5 bg-white border rounded text-center shadow-sm my-4" style="display: none; min-height: 360px;">
+            <div class="py-4">
+                <span class="badge bg-secondary mb-2">Guest Session</span>
+                <h2 class="h3 text-danger mb-3">Log in or Sign Up to save your orders and bookings</h2>
+                <p class="text-secondary mb-4 mx-auto" style="max-width: 540px;">Sign in to your AutoWorld client profile to view your scheduled test drives, check monthly vehicle financing plans, or place a new order.</p>
+                <a href="profile.html" class="btn btn-danger px-4 py-2">Log In or Sign Up</a>
+            </div>
+        </div>
+
+        <!-- Authenticated Controls & States -->
+        <div id="orders-authenticated-wrapper" style="display: none;">
+            <div class="btn-group btn-group-sm mb-4" role="group" aria-label="Filter orders">
+                <button type="button" class="btn btn-danger order-filter-btn" data-type="All">All Applications</button>
+                <button type="button" class="btn btn-outline-danger order-filter-btn" data-type="Vehicle Order">Vehicle Orders</button>
+                <button type="button" class="btn btn-outline-danger order-filter-btn" data-type="Test Drive">Test Drives</button>
+            </div>
+
+            <div id="orders-empty-state" class="p-5 bg-white border rounded text-center shadow-sm my-3" style="display: none; min-height: 340px;">
+                <div class="py-4">
+                    <h2 class="h4 text-danger mb-2">No Active Orders Yet</h2>
+                    <p class="text-secondary mb-4">You have not booked a test drive or submitted a vehicle financing order yet.</p>
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                        <a href="models.html#showroom" class="btn btn-outline-danger">Explore Models</a>
+                        <a href="services.html" class="btn btn-danger">Create First Order</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="orders-list" class="row g-4"></div>
+        </div>
+    </main>
+
+    <div id="app-toast" class="card shadow">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-2">
+            <strong id="toast-title">Notification</strong>
+            <button type="button" id="toast-close-btn" class="btn-close btn-close-white btn-sm" aria-label="Close"></button>
+        </div>
+        <div class="card-body py-2">
+            <p id="toast-body" class="mb-0 small"></p>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="mb-0">&copy; 2023 AutoWorld. Project created by: <strong>Yerassyl Aldebayev</strong> and <strong>Temirlan Tatken</strong>.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/orders.js"></script>
+    <script src="js/jquery-ux.js"></script>
+    <script src="js/jquery-services.js"></script>
+</body>
+</html>

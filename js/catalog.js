@@ -1,227 +1,256 @@
-// catalog.js - Assignment 5 (Models page):
-// 1. Objects & Methods (car objects with getFormattedPrice and getMonthlyEstimate methods)
-// 2. Arrays, Loops & Higher-Order Functions (.filter, .forEach)
-// 3. Switch Statement for category filtering
-// 4. Interactive Star Rating using document.querySelectorAll
-// 5. Event-triggered hover transform animations
-
+// catalog.js - 8-Car Showroom Database, Toggleable Star Ratings & Clean Refresh Behavior
 document.addEventListener("DOMContentLoaded", function () {
-    const gridContainer = document.getElementById("catalog-grid");
+    const catalogGrid = document.getElementById("catalog-grid");
     const filterButtons = document.querySelectorAll(".filter-btn");
     const filterStatus = document.getElementById("filter-status");
+    const RATINGS_KEY = "autoworld_ratings";
 
-    if (!gridContainer) {
-        return;
-    }
+    if (!catalogGrid) return;
 
-    // Array of Car Objects with internal methods
     const carDatabase = [
         {
-            id: "aurora",
+            id: "aurora-s",
             name: "Aurora S",
             category: "Sedan",
             engine: "2.0L Turbo",
             year: 2025,
-            price: 24500,
+            price: "$24,500",
             image: "images/gallery-1.jpeg",
-            rating: 4,
-            getFormattedPrice: function () {
-                return "$" + this.price.toLocaleString("en-US");
-            },
-            getMonthlyPayment: function () {
-                return "$" + Math.round(this.price / 60) + "/mo";
-            }
+            fallback: "images/category-sedan.jpg",
+            specs: ["195 HP", "6.8L / 100km", "Apple CarPlay & Heated Seats"]
         },
         {
-            id: "trailblazer",
+            id: "echelon-lx",
+            name: "Echelon LX",
+            category: "Sedan",
+            engine: "2.5L Hybrid",
+            year: 2026,
+            price: "$29,800",
+            image: "images/car-echelong.jpg",
+            fallback: "images/gallery-2.jpeg",
+            specs: ["235 HP Hybrid", "4.5L / 100km", "Executive Leather & Panoramic Roof"]
+        },
+        {
+            id: "trailblazer-x",
             name: "Trailblazer X",
             category: "SUV",
             engine: "3.0L V6",
             year: 2026,
-            price: 38900,
+            price: "$38,900",
             image: "images/gallery-3.jpeg",
-            rating: 5,
-            getFormattedPrice: function () {
-                return "$" + this.price.toLocaleString("en-US");
-            },
-            getMonthlyPayment: function () {
-                return "$" + Math.round(this.price / 60) + "/mo";
-            }
+            fallback: "images/category-suv.jpg",
+            specs: ["310 HP V6", "7-Passenger", "Intelligent 4WD Terrain Control"]
         },
         {
-            id: "volt",
+            id: "summit-awd",
+            name: "Summit AWD",
+            category: "SUV",
+            engine: "2.4L Turbo AWD",
+            year: 2026,
+            price: "$34,200",
+            image: "images/car-summit.jpg",
+            fallback: "images/gallery-3.jpeg",
+            specs: ["275 HP", "All-Weather Package", "360-Degree Off-Road Camera"]
+        },
+        {
+            id: "volt-pro",
             name: "Volt Pro",
             category: "Electric",
             engine: "Dual Motor EV",
             year: 2026,
-            price: 41200,
+            price: "$41,200",
             image: "images/gallery-5.jpeg",
-            rating: 5,
-            getFormattedPrice: function () {
-                return "$" + this.price.toLocaleString("en-US");
-            },
-            getMonthlyPayment: function () {
-                return "$" + Math.round(this.price / 60) + "/mo";
-            }
+            fallback: "images/gallery-2.jpeg",
+            specs: ["520 km Range", "0-100 in 4.2s", "350 kW Ultra-Fast Charging"]
         },
         {
-            id: "raptor",
+            id: "ionix-gte",
+            name: "Ionix GT-E",
+            category: "Electric",
+            engine: "Long Range Tri-Motor EV",
+            year: 2026,
+            price: "$46,500",
+            image: "images/car-ionix.jpg",
+            fallback: "images/gallery-5.jpeg",
+            specs: ["610 km Range", "0-100 in 3.4s", "Autonomous Highway Pilot"]
+        },
+        {
+            id: "raptor-gt",
             name: "Raptor GT",
             category: "Sports",
             engine: "4.0L V8",
             year: 2025,
-            price: 62000,
+            price: "$62,000",
             image: "images/gallery-7.jpeg",
-            rating: 5,
-            getFormattedPrice: function () {
-                return "$" + this.price.toLocaleString("en-US");
-            },
-            getMonthlyPayment: function () {
-                return "$" + Math.round(this.price / 60) + "/mo";
-            }
+            fallback: "images/category-sport.jpg",
+            specs: ["510 HP V8", "0-100 in 3.6s", "Carbon-Ceramic Track Brakes"]
+        },
+        {
+            id: "apex-rs",
+            name: "Apex RS",
+            category: "Sports",
+            engine: "3.8L Twin-Turbo",
+            year: 2026,
+            price: "$68,900",
+            image: "images/car-apex.jpg",
+            fallback: "images/hero-car.jpeg",
+            specs: ["580 HP Twin-Turbo", "0-100 in 3.1s", "Active Aero Rear Wing"]
         }
     ];
 
-    // Render vehicle cards dynamically
-    function renderCatalog(carsArray) {
-        gridContainer.innerHTML = "";
+    function getSavedRatings() {
+        try {
+            return JSON.parse(localStorage.getItem(RATINGS_KEY)) || {};
+        } catch (e) {
+            return {};
+        }
+    }
 
-        // Higher-order function: .forEach()
-        carsArray.forEach(function (car) {
+    function setSavedRating(carId, ratingValue) {
+        const ratings = getSavedRatings();
+        if (ratingValue <= 0) {
+            delete ratings[carId];
+        } else {
+            ratings[carId] = ratingValue;
+        }
+        localStorage.setItem(RATINGS_KEY, JSON.stringify(ratings));
+    }
+
+    function renderCatalog(selectedCategory) {
+        catalogGrid.innerHTML = "";
+        const savedRatings = getSavedRatings();
+
+        const filteredCars = selectedCategory === "All"
+            ? carDatabase
+            : carDatabase.filter(function (car) { return car.category === selectedCategory; });
+
+        if (filterStatus) {
+            filterStatus.textContent = "Showing " + filteredCars.length + " of " + carDatabase.length + " verified AutoWorld models (" + selectedCategory + ").";
+        }
+
+        filteredCars.forEach(function (car) {
+            const currentRating = savedRatings[car.id] || 0;
+
             const col = document.createElement("div");
             col.className = "col-md-6 col-lg-3";
 
-            // Build 5 interactive stars using a for loop
             let starsHtml = "";
             for (let i = 1; i <= 5; i++) {
-                const selectedClass = i <= car.rating ? "selected" : "";
-                starsHtml += '<span class="rating-star ' + selectedClass + '" data-car="' + car.id + '" data-value="' + i + '">&#9733;</span>';
+                const selectedClass = i <= currentRating ? " selected" : "";
+                starsHtml += '<span class="rating-star' + selectedClass + '" data-car-id="' + car.id + '" data-star="' + i + '" title="Click to rate, click again to remove">&#9733;</span>';
             }
 
+            let specsHtml = "";
+            car.specs.forEach(function (s) {
+                specsHtml += "<li>" + s + "</li>";
+            });
+
             col.innerHTML =
-                '<div class="card h-100 shadow-sm catalog-card">' +
-                    '<img src="' + car.image + '" class="card-img-top" alt="' + car.name + '">' +
-                    '<div class="card-body d-flex flex-column">' +
-                        '<div class="d-flex justify-content-between align-items-center mb-1">' +
-                            '<h3 class="card-title h5 mb-0">' + car.name + '</h3>' +
-                            '<span class="badge bg-danger">' + car.category + '</span>' +
-                        '</div>' +
-                        '<p class="text-secondary small mb-2">' + car.year + ' &bull; ' + car.engine + '</p>' +
-                        '<p class="fw-bold fs-5 mb-1">' + car.getFormattedPrice() + ' <span class="text-secondary fw-normal small">(' + car.getMonthlyPayment() + ')</span></p>' +
-                        '<div class="mt-auto pt-2 border-top">' +
-                            '<div class="star-container" data-car-id="' + car.id + '">' +
-                                starsHtml +
+                '<div class="card catalog-card h-100 shadow-sm">' +
+                    '<img src="' + car.image + '" onerror="this.onerror=null;this.src=\'' + car.fallback + '\';" class="card-img-top" alt="' + car.name + '">' +
+                    '<div class="card-body d-flex flex-column justify-content-between">' +
+                        '<div>' +
+                            '<div class="d-flex justify-content-between align-items-center mb-1">' +
+                                '<span class="badge bg-danger">' + car.category + '</span>' +
+                                '<span class="fw-bold text-danger">' + car.price + '</span>' +
                             '</div>' +
-                            '<small class="rating-label text-secondary d-block mt-1">Customer Rating: ' + car.rating + ' / 5</small>' +
+                            '<h3 class="h5 card-title mb-1">' + car.name + '</h3>' +
+                            '<p class="text-secondary small mb-2">' + car.year + ' &bull; ' + car.engine + '</p>' +
+                            '<ul class="small ps-3 mb-2">' + specsHtml + '</ul>' +
+                        '</div>' +
+                        '<div class="border-top pt-2 mt-2">' +
+                            '<div class="d-flex justify-content-between align-items-center mb-2">' +
+                                '<div class="star-container">' + starsHtml + '</div>' +
+                                '<small class="rating-label text-secondary">' + (currentRating > 0 ? currentRating + "/5" : "Rate") + '</small>' +
+                            '</div>' +
+                            '<div class="d-grid gap-1">' +
+                                '<a href="services.html?car=' + encodeURIComponent(car.name) + '&mode=Vehicle Order" class="btn btn-danger btn-sm">Order / Finance</a>' +
+                                '<a href="services.html?car=' + encodeURIComponent(car.name) + '&mode=Test Drive" class="btn btn-outline-danger btn-sm">Book Test Drive</a>' +
+                            '</div>' +
                         '</div>' +
                     '</div>' +
                 '</div>';
 
-            gridContainer.appendChild(col);
+            catalogGrid.appendChild(col);
         });
 
-        attachStarRatingListeners();
-        attachCardHoverAnimations();
-    }
-
-    // Use document.querySelectorAll to select rating stars and change color on click
-    function attachStarRatingListeners() {
-        const allStars = document.querySelectorAll(".rating-star");
-
-        allStars.forEach(function (star) {
-            star.addEventListener("click", function () {
-                const carId = star.getAttribute("data-car");
-                const newRating = parseInt(star.getAttribute("data-value"), 10);
-
-                // Update object rating in carDatabase
-                const targetCar = carDatabase.find(function (c) {
-                    return c.id === carId;
-                });
-                if (targetCar) {
-                    targetCar.rating = newRating;
-                }
-
-                // Select all stars in this specific card and update their color class
-                const container = star.parentElement;
-                const siblingStars = container.querySelectorAll(".rating-star");
-                siblingStars.forEach(function (s) {
-                    const val = parseInt(s.getAttribute("data-value"), 10);
-                    if (val <= newRating) {
-                        s.classList.add("selected");
-                    } else {
-                        s.classList.remove("selected");
-                    }
-                });
-
-                // Update rating label textContent
-                const label = container.nextElementSibling;
-                if (label) {
-                    label.textContent = "Your Rating: " + newRating + " / 5 (Saved!)";
-                }
-            });
+        const tableRows = document.querySelectorAll("#comparison-table-body tr");
+        tableRows.forEach(function (row) {
+            const rowCategory = row.children[1] ? row.children[1].textContent.trim() : "";
+            if (selectedCategory === "All" || rowCategory === selectedCategory) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
         });
     }
 
-    // Dynamic style.transform animation on card mouseenter/mouseleave
-    function attachCardHoverAnimations() {
-        const cards = document.querySelectorAll(".catalog-card");
-        cards.forEach(function (card) {
-            card.addEventListener("mouseenter", function () {
-                card.style.transform = "translateY(-6px)";
-            });
-            card.addEventListener("mouseleave", function () {
-                card.style.transform = "translateY(0)";
-            });
+    // Click star to rate; click the same star again to revert/remove rating
+    catalogGrid.addEventListener("click", function (event) {
+        const starEl = event.target.closest(".rating-star");
+        if (!starEl) return;
+
+        const carId = starEl.getAttribute("data-car-id");
+        const clickedStar = parseInt(starEl.getAttribute("data-star"), 10) || 1;
+        const existingRating = getSavedRatings()[carId] || 0;
+
+        const nextRating = (existingRating === clickedStar) ? 0 : clickedStar;
+        setSavedRating(carId, nextRating);
+
+        const container = starEl.parentElement;
+        const allStars = container.querySelectorAll(".rating-star");
+        allStars.forEach(function (s, idx) {
+            if (idx < nextRating) {
+                s.classList.add("selected");
+            } else {
+                s.classList.remove("selected");
+            }
+        });
+
+        const label = container.parentElement.querySelector(".rating-label");
+        if (label) {
+            label.textContent = nextRating > 0 ? nextRating + "/5" : "Rate";
+        }
+    });
+
+    function setActiveCategoryButton(category) {
+        filterButtons.forEach(function (btn) {
+            if (btn.getAttribute("data-filter") === category) {
+                btn.classList.remove("btn-outline-danger");
+                btn.classList.add("btn-danger");
+            } else {
+                btn.classList.remove("btn-danger");
+                btn.classList.add("btn-outline-danger");
+            }
         });
     }
 
-    // Switch Statement + Higher-Order Function (.filter) for category buttons
     filterButtons.forEach(function (btn) {
         btn.addEventListener("click", function () {
-            filterButtons.forEach(function (b) {
-                b.classList.remove("btn-danger");
-                b.classList.add("btn-outline-danger");
-            });
-            btn.classList.remove("btn-outline-danger");
-            btn.classList.add("btn-danger");
-
-            const selectedCategory = btn.getAttribute("data-filter");
-            let statusMessage = "";
-
-            // Switch statement controlling category message and filter logic
-            switch (selectedCategory) {
-                case "Sedan":
-                    statusMessage = "Showing Sedan models: built for daily comfort and fuel efficiency.";
-                    break;
-                case "SUV":
-                    statusMessage = "Showing SUV models: spacious utility vehicles for family adventures.";
-                    break;
-                case "Electric":
-                    statusMessage = "Showing Electric models: zero-emission dual-motor EV technology.";
-                    break;
-                case "Sports":
-                    statusMessage = "Showing Sports models: track-ready V8 performance vehicles.";
-                    break;
-                default:
-                    statusMessage = "Showing all 4 verified AutoWorld models.";
-                    break;
-            }
-
-            if (filterStatus) {
-                filterStatus.textContent = statusMessage;
-            }
-
-            // Higher-Order Function: .filter() takes a callback function as argument
-            const filteredCars = selectedCategory === "All"
-                ? carDatabase
-                : carDatabase.filter(function (car) {
-                    return car.category === selectedCategory;
-                });
-
-            renderCatalog(filteredCars);
+            const category = btn.getAttribute("data-filter") || "All";
+            setActiveCategoryButton(category);
+            renderCatalog(category);
         });
     });
 
-    // Initial render on page load
-    renderCatalog(carDatabase);
+    // Read ?category=... ONLY when navigating from Home page, then clean URL so F5 refresh stays at top with All Models
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlCategory = urlParams.get("category");
+    const validCategories = ["All", "Sedan", "SUV", "Electric", "Sports"];
+
+    let initialCategory = "All";
+    if (urlCategory && validCategories.indexOf(urlCategory) > -1) {
+        initialCategory = urlCategory;
+    }
+
+    setActiveCategoryButton(initialCategory);
+    renderCatalog(initialCategory);
+
+    if (window.location.search || window.location.hash) {
+        setTimeout(function () {
+            if (window.history && window.history.replaceState) {
+                window.history.replaceState(null, "", window.location.pathname);
+            }
+        }, 600);
+    }
 });

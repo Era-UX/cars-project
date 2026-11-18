@@ -22,7 +22,9 @@
                         <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="models.html">Models</a></li>
                         <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="orders.html">Orders <span id="nav-order-badge" class="badge bg-danger ms-1" style="display:none;">0</span></a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" id="nav-profile-link" href="profile.html">Profile</a></li>
                         <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
                             <button type="button" id="theme-toggle-btn" class="btn btn-warning btn-sm">Night Mode</button>
                         </li>
@@ -33,7 +35,7 @@
         <div id="scroll-progress-bar"></div>
     </header>
 
-    <main class="container py-4 mt-3">
+    <main class="container py-4">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
             <p id="time-greeting" class="text-danger fw-semibold mb-0"></p>
             <div class="btn-group btn-group-sm" role="group" aria-label="Language selector">
@@ -60,7 +62,7 @@
                 <div class="row g-2 justify-content-center mt-2">
                     <div class="col-md-5">
                         <div class="p-2 border rounded bg-light d-flex justify-content-between align-items-center">
-                            <span id="i18n-address" class="small fw-semibold">Allur Auto, Turan Ave 53, Astana</span>
+                            <span id="i18n-address" class="small fw-semibold">Turan Ave 53, Astana</span>
                             <button type="button" id="i18n-btn-address" class="btn btn-outline-danger btn-sm copy-btn ms-2" data-copy-target="#i18n-address">Copy Address</button>
                         </div>
                     </div>
@@ -110,7 +112,7 @@
                         <img src="images/why-choose.jpg" data-src="images/student1.jpeg" alt="Portrait of Temirlan Tatken" class="team-photo lazy-img rounded-circle border border-3 border-danger mx-auto mb-3">
                         <h3>Temirlan Tatken</h3>
                         <p id="i18n-member1-role" class="text-secondary fst-italic">Frontend Developer &amp; Designer</p>
-                        <p id="i18n-member1-bio">Responsible for the Services and About pages. Loves classic muscle cars and clean code.</p>
+                        <p id="i18n-member1-bio">Responsible for the Services, Orders, Profile, and About pages. Loves classic muscle cars and clean code.</p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -118,7 +120,7 @@
                         <img src="images/why-choose.jpg" data-src="images/student2.jpg" alt="Portrait of Yerassyl Aldebayev" class="team-photo lazy-img rounded-circle border border-3 border-danger mx-auto mb-3">
                         <h3>Yerassyl Aldebayev</h3>
                         <p id="i18n-member2-role" class="text-secondary fst-italic">Frontend Developer</p>
-                        <p id="i18n-member2-bio">Created the Home and Models pages. Enjoys Formula 1 racing and responsive web design.</p>
+                        <p id="i18n-member2-bio">Created the Home and Models pages, search filtering, and API integrations. Enjoys Formula 1 racing and responsive web design.</p>
                     </div>
                 </div>
             </div>
@@ -142,8 +144,9 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/datetime.js"></script>
     <script src="js/theme.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/datetime.js"></script>
     <script src="js/language.js"></script>
     <script src="js/jquery-ux.js"></script>
     <script src="js/jquery-services.js"></script>
